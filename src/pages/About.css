@@ -1,0 +1,893 @@
+/* Base / resets */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root{
+  --accent: #ff7a28;
+  --text: #111;
+  --muted: #222;
+  --copy: #a6a6a6;
+
+  /* Set these to your exported blob image dimensions (or tweak to taste) */
+  --visual-width: 820px;            /* width of the centered blob image */
+  --visual-height: 320px;           /* visible height of the blob image (used for vertical calculations) */
+
+  /* width of the right copy column and vertical nudge for precise placement */
+  --copy-column-width: 360px;
+  --copy-vertical-offset: 38px;     /* increase to push the copy lower; decrease to raise it */
+
+  /* NEW: raise the visual up by this many pixels (positive number => image moves up) */
+  --visual-raise: 48px;
+}
+.navbar-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* keeps logo left + button right */
+  position: relative; /* allows absolute positioning of nav-links */
+}
+
+.logo {
+  height: 40px;
+  display: block;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%); /* centers it horizontally in navbar */
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 4px;
+}
+
+.nav-active {
+  font-weight: 700;
+  color: var(--accent);
+  border-bottom: 2px solid rgba(255, 92, 0, 0.12);
+}
+
+.create-account {
+  border: 1px solid var(--accent);
+  background: transparent;
+  color: var(--accent);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+/* Layout container */
+.about-container {
+  max-width: 1280px;
+  margin: 48px auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Heading column */
+.about-left { grid-column: 1 / 2; display:flex; align-items:flex-start; }
+.about-heading {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 64px;
+  line-height: 1.03;
+  font-weight: 800;
+  color: var(--text);
+  margin-top: 6px;
+}
+.about-heading .strong { font-weight:500; }
+.about-heading .muted { font-weight:200; color:#222; }
+.about-heading .accent { color:var(--accent); font-weight:200; }
+
+/* VISUAL ROW: center the blob image on the page; contains absolutely-positioned copy aligned to the right edge of image */
+.visual-row {
+  grid-column: 1 / 3;
+  position: relative;               /* required so the copy can be positioned relative to this row */
+  display: block;
+  margin-top: 18px;
+  padding-bottom: 40px;             /* give vertical room for the absolutely positioned copy */
+}
+
+/* Centered visual container (the image) */
+/* We raise the image using transform so it visually comes closer to the heading */
+.about-visual {
+  width: var(--visual-width);
+  max-width: 100%;
+  margin: 0 auto;                   /* center horizontally on the page */
+  transform: translateY(calc(-1 * var(--visual-raise)));
+}
+.about-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+  /* blob image should already be exported from Figma with the mask cut-out */
+}
+
+/* RIGHT COPY: absolute so it sits exactly at the right end of the centered image */
+/* Calculation explanation:
+   - (100% - --visual-width) / 2 = left margin around the centered image
+   - placing right: that value aligns the right edge of the copy with the right edge of the image
+   - we subtract --visual-raise in the top calc so the copy follows the raised image
+*/
+.about-copy-right {
+  position: absolute;
+  width: var(--copy-column-width);
+  right: calc((100% - var(--visual-width)) / 2);
+  /* adjust vertical placement: base on visual height and nudge, then subtract raised amount */
+  top: calc(var(--visual-height) * 0.58 + var(--copy-vertical-offset) - var(--visual-raise));
+  transform: translateY(-8px); /* small fine-tune if needed */
+  pointer-events: auto;
+  
+}
+
+/* Stacked lines style (right aligned to match the screenshot) */
+.about-copy-line {
+  color: var(--copy);
+  font-size: 18px;
+  line-height: 1.9;
+  text-align: right;
+  margin: 6px;
+  font-weight: 400;
+}
+
+/* Responsive adjustments - ensure copy stays correct on narrow screens */
+/* @media (max-width: 1000px) {
+  .about-container { grid-template-columns: 1fr; gap: 28px; padding: 0 20px; }
+  .about-left { grid-column: 1 / 2; }
+  .visual-row { grid-column: 1 / 2; padding-bottom: 0; min-height: auto; }
+  .about-visual { width: 100%; max-width: 100%; transform: none; }
+  .about-photo { width: 100%; height: auto; border-radius: 12px; }
+  .about-copy-right {
+    position: static;
+    width: 100%;
+    transform: none;
+    top: auto;
+    right: auto;
+    margin: 10px auto 0;
+    text-align: center;
+  }
+  .about-copy-line { text-align: center; font-size: 16px; }
+  .about-heading { font-size: 36px; line-height: 1.05; }
+  .create-account { display: none; }
+} */
+
+/* Wide-screen tweaks */
+@media (min-width: 1400px) {
+  :root {
+    --visual-width: 900px;
+    --visual-height: 360px;
+    --copy-column-width: 380px;
+    --copy-vertical-offset: 40px;
+    --visual-raise: 48px;
+  }
+  .about-heading { font-size: 72px; }
+}
+
+
+/* WHO WE ARE SECTION — centered, professional, adjustable offset */
+:root {
+    /* optional nudge to move the WHO WE ARE block slightly right (default 0%). */
+    --who-offset: 0%; /* set to 4% or 6% if you want a slight right shift */
+  }
+  
+  .who-we-are {
+    grid-column: 1 / 3;
+    max-width: 1100px;
+    /* pulled up from 80px -> 36px so the section sits closer */
+    margin: -30px auto 24px;
+    transform: translateX(var(--who-offset));
+    text-align: center;
+    padding: 0 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Heading and subtitle */
+  .who-heading {
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 auto 12px;
+    max-width: 720px;
+  }
+  
+/* make the subtitle match the Figma screenshot: smaller, lighter, tighter width */
+.who-subtitle {
+  font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-size: 13px;              /* smaller than body copy */
+  font-weight: 300;             /* very light */
+  color: rgba(34, 34, 34, 0.45);/* muted grey, slightly transparent */
+  max-width: 560px;             /* narrow line length like the design */
+  margin: 8px auto 48px;        /* sit closer to heading, keep space below for cards */
+  line-height: 1.5;             /* tighter than before */
+  letter-spacing: 0.2px;        /* subtle tracking to match Figma */
+  text-align: center;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+  
+  /* Grid for the 3 items — items centered and evenly spaced */
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    max-width: 1100px;
+    margin: 0 auto;
+    justify-items: center;    /* center each card in its column */
+    align-items: start;
+  }
+  
+  /* Card styles */
+  .who-item {
+    background: #fff;
+    border-radius: 36px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+    padding: 48px 28px 32px;
+    width: 320px;             /* fixed card width keeps layout consistent */
+    text-align: center;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  
+  .who-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.1);
+  }
+  
+  /* Icon circle pulled above card */
+  .who-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -56px auto 20px; /* pull the icon up */
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+  }
+  
+  .who-icon img {
+    width: 28px;
+    height: 28px;
+  }
+  
+  /* Titles and copy inside cards */
+  .who-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  
+  .who-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--copy);
+    max-width: 280px;
+    margin: 0 auto;
+  }
+  
+
+  /* WHO WE SERVE — full central layout */
+.who-we-serve {
+  max-width: 90%;        /* take up 90% of the screen width */
+  margin: 80px auto;     /* center horizontally */
+  text-align: center;
+  padding: 0;            /* remove extra side padding */
+  box-sizing: border-box;
+  transform: translateX(235px);
+}
+
+/* heading */
+.serve-heading {
+  font-size: 32px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 12px;
+}
+
+/* subtitle */
+.serve-subtitle {
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(34,34,34,0.6);
+  max-width: 800px;
+  margin: 8px auto 50px;
+  line-height: 1.5;
+}
+
+/* Images — center horizontally, make them big */
+.serve-images {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+  /* transform: translateX(235px); */
+}
+
+/* Large images spanning most of screen width */
+.serve-img {
+  width: 150%;
+  max-width: 1400px;    /* almost full laptop width */
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+  display: block;
+ 
+}
+
+/* Responsive tweaks */
+@media (max-width: 1200px) {
+  .serve-img { max-width: 95%; }
+}
+
+@media (max-width: 820px) {
+  .serve-images { gap: 40px; }
+  .serve-img { max-width: 100%; border-radius: 10px; }
+}
+
+
+/* Better Tools Section */
+.better-tools {
+  background: #fff;
+  padding: 0.5rem 2rem 3rem;
+  border-bottom: 1px solid #eee;
+}
+.better-tools-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.better-tools-text {
+  flex: 1 1 480px;
+  text-align: left;
+}
+
+.better-tools-text h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 1.5rem;
+  line-height: 1.3;
+}
+
+.better-tools-text p {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+ 
+  max-width: 480px;
+}
+
+.better-tools-text p strong {
+  color: #555;
+ 
+  display: block; /* makes "for you." drop to its own line */
+  margin-top: -0.1rem;
+}
+
+
+.waitlist-btn.outline {
+  background: transparent;
+  border: 1px solid #f7941d;
+  color: #fdc830;
+  padding: 12px 26px;
+  border-radius: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.waitlist-btn.outline:hover {
+  background: #f7941d;
+  color: #fff;
+}
+
+.better-tools-image {
+  flex: 1 1 420px;
+  display: flex;
+  justify-content: center;
+}
+
+.better-tools-image img {
+  max-width: 460px;
+  width: 100%;
+}
+
+
+/* FOOTER - layout and styles matched to screenshot */
+.footer {
+  background: #fff;
+  padding: 48px 0 56px;
+  color: #222;
+  /* border-top: 1px solid #eee;  */
+}
+
+.footer-inner {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* LEFT */
+.footer-left {
+  flex: 1 1 55%;
+  max-width: 740px;
+}
+
+.footer-logo {
+  width: 120px;
+  display: inline-block;
+  margin-bottom: 18px;
+}
+
+.footer-desc {
+  color: #666;
+  line-height: 1.6;
+  max-width: 520px;
+  margin-bottom: 28px;
+  font-size: 14px;
+}
+
+/* Newsletter */
+.newsletter-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 14px;
+}
+
+.newsletter-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 420px;
+  max-width: 100%;
+  margin-bottom: 22px;
+}
+
+/* input styled as thin underline with large left padding area */
+.newsletter-input {
+  flex: 1;
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+  padding: 10px 8px;
+  font-size: 14px;
+  color: #333;
+  background: transparent;
+  outline: none;
+}
+
+/* small arrow button at right of input */
+.newsletter-arrow {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Social icons row */
+.footer-socials {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.social-circle i {
+  font-size: 16px;
+  color: #fff;
+}
+
+.social-circle {
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #222;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  overflow: hidden; /* prevents SVG from clipping */
+}
+.social-circle svg {
+  width: 18px;   /* scale up from 14px */
+  height: 18px;
+  fill: #fff;    /* ensure white icons */
+  display: block;
+}
+
+/* copyright */
+.footer-copyright {
+  font-size: 12px;
+  color: #9b9b9b;
+  margin-top: 8px;
+}
+
+/* RIGHT */
+.footer-right {
+  flex: 1 1 35%;
+  max-width: 360px;
+  display:flex;
+  gap: 32px;
+  justify-content: flex-end;
+  align-items:flex-start;
+  flex-direction: column;
+}
+
+/* top-level nav links (stacked horizontally in screenshot line) */
+.footer-links {
+  display:flex;
+  gap: 18px;
+  align-items:center;
+  justify-content: flex-end;
+  margin-bottom: 8px;
+}
+.footer-links a {
+  color:#444;
+  text-decoration:none;
+  font-size:14px;
+  padding: 6px 4px;
+}
+
+/* Contacts column */
+.footer-contacts {
+  display:flex;
+  flex-direction:column;
+  gap: 18px;
+  align-items:flex-end;
+}
+
+.contact-block {
+  text-align: right;
+  min-width: 190px;
+}
+
+.contact-title {
+  color: #e53935; /* red like in screenshot */
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.contact-line {
+  color: #6b6b6b;
+  font-size: 13px;
+  margin: 0;
+  line-height: 1.5;
+}
+
+
+/* ======================== */
+/* ABOUT PAGE RESPONSIVE    */
+/* ======================== */
+/* ABOUT INTRO - mobile reflow */
+@media (max-width: 768px) {
+  .about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem 1rem;
+    gap: 1.5rem;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .about-left {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .about-heading {
+    font-size: 1.8rem;
+    line-height: 1.3;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .visual-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .about-visual {
+    width: 100%;
+    transform: none;
+    margin-bottom: 1rem;
+  }
+
+  .about-copy-right {
+    position: static;   /* remove absolute */
+    width: 100%;
+    text-align: center; /* center text */
+    margin-top: 12px;
+  }
+
+  .about-copy-line {
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 4px 0;
+  }
+}
+
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+@media (max-width: 768px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+}
+
+
+
+
+
+/* Mobile */
+@media (max-width: 700px) {
+  .who-heading {
+    font-size: 22px;
+    margin: 80px auto 24px;
+  }
+  .who-subtitle {
+    font-size: 13px;
+    margin-bottom: 40px;
+    /* margin: 80px auto 24px; */
+  }
+  .who-grid {
+    grid-template-columns: 1fr; 
+    gap: 50px;
+    margin: 100px auto 24px;
+  }
+  .who-item {
+    max-width: 100%;
+    padding: 40px 24px;
+  }
+}
+
+/* Default: desktop */
+.desktop-only { display: block; }
+.mobile-only { display: none; }
+
+/* Mobile */
+@media (max-width: 768px) {
+  .desktop-only { display: none; }
+  .mobile-only { display: block; }
+
+  .who-we-serve {
+    transform: none;          /* remove desktop horizontal shift */
+    margin: 60px auto 40px;   /* tighten spacing */
+    text-align: center;
+  }
+
+  .serve-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+
+  .serve-subtitle {
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 32px;
+    padding: 0 16px;
+  }
+
+  .serve-images {
+    gap: 24px;  /* less gap between cards */
+  }
+
+  .serve-img {
+    width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+}
+
+/* On mobile: stack vertically, center everything */
+@media (max-width: 768px) {
+  .better-tools-inner {
+    flex-direction: column;
+    text-align: center;
+    margin: -72px auto 40px;  
+
+  }
+
+  .better-tools-text {
+    flex: unset;
+    text-align: center;
+  }
+
+  .better-tools-text h2 {
+    font-size: 1.6rem;
+    line-height: 1.3;
+  }
+
+  .better-tools-text p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 1rem auto;
+    max-width: 100%;
+  }
+
+  .waitlist-btn.outline {
+    margin: 0 auto;          /* center button */
+    display: inline-block;
+  }
+
+
+  /* Image styles */
+  .better-tools-image {
+    margin-top: 40rem;
+    width: 100%;
+    display: flex;
+    justify-content: center; 
+    visibility: visible;  /* 🔥 centers the image properly */
+  }
+
+  .better-tools-image img {
+    width: 135%;
+    max-width: 2000px;
+    height: auto;
+    border-radius: 12px;
+  }
+}
+
+
+/* ========================= */
+/* CLEAN MOBILE FOOTER LAYOUT */
+/* ========================= */
+@media (max-width: 768px) {
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;   /* ✅ everything aligned left */
+    text-align: left;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  /* Logo */
+  .footer-logo {
+    width: 120px;
+    margin-bottom: 12px;
+  }
+
+  /* Description */
+  .footer-desc {
+    font-size: 13px;
+    line-height: 1.6;
+    max-width: 100%;
+    margin-bottom: 12px;
+    color: #555;
+  }
+
+  /* Newsletter */
+  .newsletter-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .newsletter-row {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+    margin-bottom: 16px;
+  }
+
+  .newsletter-row input {
+    width: 100%;
+    padding: 10px 40px 10px 12px;
+    font-size: 13px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+
+  .newsletter-row button {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #f4a100; /* orange accent */
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  /* Socials (right aligned) */
+  .footer-socials {
+    display: flex;
+    gap: 16px;
+    margin-left: auto;    /* ✅ push to right */
+    margin-bottom: 16px;
+  }
+
+  .footer-socials a {
+    background: none;
+    color: inherit;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Links (centered like desktop) */
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 18px;
+    margin: 10px 0;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: #333;
+    text-decoration: none;
+  }
+
+  /* Copyright (✅ always visible now) */
+  .footer-copy {
+    font-size: 12px;
+    color: #777;
+    margin-top: 8px;
+    text-align: left;
+  }
+
+  /* Hide contacts only */
+  .footer-contacts,
+  .contact-block {
+    display: none;
+  }
+}
+
+
+/* Ensure NavLink version of waitlist button looks same as <button> */
+.waitlist-btn,
+.waitlist-btn:link,
+.waitlist-btn:visited {
+  display: inline-block;
+  text-decoration: none;   /* remove underline */
+  border-radius: 100px;
+  cursor: pointer;
+}
+
+/* Outline version */
+.waitlist-btn.outline {
+  background: transparent;
+  border: 1px solid #f7941d;
+  color: #fdc830;
+  padding: 12px 26px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.waitlist-btn.outline:hover {
+  background: #f7941d;
+  color: #fff;
+}

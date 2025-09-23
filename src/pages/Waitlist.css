@@ -1,0 +1,353 @@
+.waitlist-page {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    font-family: "Inter", sans-serif;
+  }
+  
+  /* LEFT COLUMN */
+  .waitlist-left {
+    flex: 1;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    background: #fff;
+    align-items: flex-start; /* keeps logo + form aligned */
+  }
+  
+  .waitlist-logo {
+    max-height: 40px;
+    width: auto;
+    margin-bottom: 40px;
+  }
+  
+  .waitlist-left h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 12px;
+  }
+  
+  .waitlist-left p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  
+  /* FORM */
+  .waitlist-form {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+    width: 100%;
+    max-width: 460px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+  
+  .form-group label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 18px;
+  }
+  
+  /* FORM INPUTS + SELECTS */
+.waitlist-form input,
+.waitlist-form select {
+  appearance: none;              /* removes default styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 15px;
+  background: #fafafa;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+/* Placeholder style */
+.waitlist-form input::placeholder {
+  color: #aaa;
+  font-size: 14px;
+}
+
+/* Focus state */
+.waitlist-form input:focus,
+.waitlist-form select:focus {
+  border-color: #ff6600;
+  background: #fff;
+}
+
+/* CUSTOM SELECT DROPDOWN ARROW */
+.waitlist-form select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='%23999' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  cursor: pointer;
+}
+
+/* Remove IE arrow */
+.waitlist-form select::-ms-expand {
+  display: none;
+}
+
+  /* BUTTON */
+  .join-btn {
+    background: #f7931e;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 18px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .join-btn:hover {
+    background: #e67808;
+  }
+  
+  /* RIGHT COLUMN */
+  .waitlist-right {
+    flex: 1;
+    background: #f8f8f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .waitlist-image {
+    max-width: 85%;
+    height: auto;
+    border-radius: 20px;
+    object-fit: cover;
+  }
+  
+
+  .custom-input {
+    margin-top: 12px;
+    padding: 14px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 15px;
+    outline: none;
+    width: 100%;
+  }
+  
+  .custom-input:focus {
+    border-color: #ff6600;
+  }
+  
+
+
+  .success-screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px;
+    min-height: 100vh;
+    background: #fff;
+  }
+  
+  .success-left {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .success-left .check-icon {
+    font-size: 50px;
+    color: #ff7a00; /* your brand orange */
+    margin-bottom: 20px;
+  }
+  
+  .success-left h2 {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+  
+  .success-left p {
+    color: #666;
+    margin-bottom: 20px;
+  }
+  
+  .social-icons a {
+    margin: 0 8px;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .success-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .success-right img {
+    max-width: 350px;
+    border-radius: 30px;
+  }
+  
+  /* ============================= */
+/* RESPONSIVE STYLES */
+/* ============================= */
+
+/* Tablets (<=1024px) */
+@media (max-width: 1024px) {
+    .waitlist-page {
+      flex-direction: column;
+      height: auto;
+    }
+  
+    .waitlist-left {
+      padding: 40px 50px;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .waitlist-left h1 {
+      font-size: 24px;
+    }
+  
+    .waitlist-left p {
+      font-size: 15px;
+    }
+  
+    .waitlist-form {
+      max-width: 400px;
+    }
+  
+    .waitlist-right {
+      padding: 30px 0;
+    }
+  
+    .waitlist-image {
+      max-width: 70%;
+    }
+  
+    .success-screen {
+      flex-direction: column;
+      text-align: center;
+      padding: 40px;
+    }
+  
+    .success-right {
+      margin-top: 30px;
+    }
+  }
+  
+  /* Mobile (<=768px) */
+  @media (max-width: 768px) {
+    .waitlist-page {
+      flex-direction: column;
+      height: auto;
+      padding: 20px;
+    }
+  
+    .waitlist-left {
+      padding: 20px;
+      align-items: center;
+      text-align: center;
+    }
+  
+    .waitlist-logo {
+      max-height: 30px;
+      margin-bottom: 24px;
+    }
+  
+    .waitlist-left h1 {
+      font-size: 22px;
+    }
+  
+    .waitlist-left p {
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+  
+    .form-row {
+      flex-direction: column;
+      gap: 20px;
+    }
+  
+    .waitlist-form {
+      width: 100%;
+      max-width: 100%;
+      gap: 25px;
+    }
+  
+    .join-btn {
+      width: 100%;
+    }
+  
+    .waitlist-right {
+      padding: 20px 0;
+    }
+  
+    .waitlist-image {
+      max-width: 90%;
+    }
+  
+    .success-screen {
+      padding: 30px 20px;
+    }
+  
+    .success-left h2 {
+      font-size: 22px;
+    }
+  
+    .success-left p {
+      font-size: 14px;
+    }
+  
+    .success-right img {
+      max-width: 80%;
+    }
+  }
+  
+  /* Small phones (<=480px) */
+  @media (max-width: 480px) {
+    .waitlist-left h1 {
+      font-size: 20px;
+    }
+  
+    .waitlist-left p {
+      font-size: 13px;
+      line-height: 1.5;
+    }
+  
+    .join-btn {
+      font-size: 15px;
+      padding: 12px 16px;
+    }
+  
+    .waitlist-image {
+      max-width: 100%;
+      border-radius: 15px;
+    }
+  
+    .success-left h2 {
+      font-size: 20px;
+    }
+  
+    .success-left .check-icon {
+      font-size: 40px;
+    }
+  }
+  

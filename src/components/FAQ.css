@@ -1,0 +1,120 @@
+ /* FAQ Section (updated) */
+ .faq-section {
+    padding: 80px 20px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  
+  /* Heading with colored Q */
+  .faq-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: #222;
+  }
+  .faq-accent {
+    color: var(--accent, #ff7a28); /* colored Q */
+  }
+  
+  /* subtitle split across two lines (we used a <br /> in JSX) */
+  .faq-subtitle {
+    color: #777;
+    margin-bottom: 28px;
+    font-size: 1rem;
+    max-width: 720px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.45;
+  }
+  
+  /* list of cards */
+  .faq-list {
+    max-width: 880px;
+    margin: 0 auto;
+    text-align: left;
+    padding: 0 12px;
+  }
+  
+  /* Each item is a card with spacing between items */
+  .faq-item {
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+    margin-bottom: 18px;            /* space between cards */
+    padding: 0;                     /* padding is applied on inner elements */
+    overflow: visible;
+  }
+  
+  /* make the whole question a button area (big click target) */
+  .faq-question {
+    width: 100%;
+    border: none;
+    background: transparent;
+    padding: 22px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  /* question text — default (closed) : normal weight and muted color */
+  .faq-q-text {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 500;               /* normal/medium when closed */
+    color: #444;                    /* muted color when closed */
+    transition: color 0.18s ease, font-weight 0.18s ease;
+  }
+  
+  /* plus/x icon — always accent color */
+  .faq-icon {
+    font-size: 20px;
+    color: var(--accent, #ff7a28);
+    line-height: 1;
+  }
+  
+  /* Answer container: hidden by default, animated via max-height */
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.36s cubic-bezier(.2,.9,.2,1), opacity 0.24s ease, margin 0.24s ease;
+    opacity: 0;
+    padding: 0 24px;
+    background: transparent;
+  }
+  
+  /* When open — expandable area shows */
+  .faq-answer.open {
+    max-height: 600px; /* large enough to fit content */
+    opacity: 1;
+    margin-bottom: 18px;
+    padding-top: 12px;
+    padding-bottom: 18px;
+  }
+  
+  /* answer text style */
+  .faq-answer p {
+    margin: 0;
+    color: #555;
+    line-height: 1.65;
+    font-size: 0.98rem;
+  }
+  
+  /* Open state styles for the question text: dark + bold */
+  .faq-item.open .faq-q-text {
+    font-weight: 700;   /* bold when clicked/open */
+    color: #111;        /* darker color when opened */
+  }
+  
+  /* subtle hover for the question row */
+  .faq-question:hover .faq-q-text {
+    color: #222;
+  }
+  
+  /* small responsive tweaks */
+  @media (max-width: 680px) {
+    .faq-question { padding: 18px 16px; }
+    .faq-answer { padding: 0 16px; }
+    .faq-subtitle { font-size: 0.95rem; }
+  }

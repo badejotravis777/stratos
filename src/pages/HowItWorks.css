@@ -1,0 +1,349 @@
+/* Page wrapper */
+.howitworks-page {
+    background: #fff;
+    color: #222;
+    font-family: "Inter", sans-serif;
+  }
+  
+  /* Hero Section */
+  .howitworks-hero {
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  .howitworks-hero h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .howitworks-hero p {
+    color: #666;
+    max-width: 600px;
+    margin: 0 auto 60px;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+  
+  /* Steps layout */
+  .steps-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    position: relative;
+  }
+  
+  .step-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  
+  .step-content {
+    flex: 1;
+    text-align: right;
+  }
+  
+  .step-content h4 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+  
+  .step-image {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .step-image img {
+    width: 180px;
+    height: auto;
+  }
+  
+  .step-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    position: relative;
+  }
+  
+  .step-circle {
+    width: 14px;
+    height: 14px;
+    border: 2px solid #ff5c00;
+    border-radius: 50%;
+    background: #fff;
+    margin-bottom: 5px;
+  }
+  
+  .step-line {
+    flex-grow: 1;
+    width: 2px;
+    background: #ddd;
+    min-height: 50px;
+  }
+  
+  .step-content,
+.step-image {
+  flex: 1;
+  min-height: 150px; /* ensures equal vertical spacing */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Wrapper */
+.howitworks-video {
+    padding: 80px 20px;
+    text-align: center;
+  }
+  
+  /* Title */
+  .howitworks-video h2 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #222;
+    margin-bottom: 24px;
+  }
+  
+  /* Video container */
+  .video-card {
+    position: relative;
+    width: 100%;
+    max-width: 720px;   /* large like your screenshot */
+    margin: 0 auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+  
+  /* Video */
+  .video-thumb {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  
+
+
+.footer {
+    background: #fff;
+    padding: 48px 0 56px;
+    color: #222;
+  }
+  
+  .footer-inner {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  
+  /* LEFT */
+  .footer-left {
+    flex: 1 1 55%;
+    max-width: 740px;
+  }
+  
+  .footer-logo {
+    width: 120px;
+    display: inline-block;
+    margin-bottom: 18px;
+  }
+  
+  .footer-desc {
+    color: #666;
+    line-height: 1.6;
+    max-width: 520px;
+    margin-bottom: 28px;
+    font-size: 14px;
+  }
+  
+  /* Newsletter */
+  .newsletter-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 14px;
+  }
+  
+  .newsletter-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 420px;
+    max-width: 100%;
+    margin-bottom: 22px;
+  }
+  
+  /* input styled as thin underline with large left padding area */
+  .newsletter-input {
+    flex: 1;
+    border: none;
+    border-bottom: 1px solid rgba(0,0,0,0.15);
+    padding: 10px 8px;
+    font-size: 14px;
+    color: #333;
+    background: transparent;
+    outline: none;
+  }
+  
+  /* small arrow button at right of input */
+  .newsletter-arrow {
+    background: transparent;
+    border: none;
+    padding: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  /* Social icons row */
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .social-circle i {
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .social-circle {
+    display: inline-flex;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #222;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    overflow: hidden; /* prevents SVG from clipping */
+  }
+  .social-circle svg {
+    width: 18px;   /* scale up from 14px */
+    height: 18px;
+    fill: #fff;    /* ensure white icons */
+    display: block;
+  }
+  
+  /* copyright */
+  .footer-copyright {
+    font-size: 12px;
+    color: #9b9b9b;
+    margin-top: 8px;
+  }
+  
+  /* RIGHT */
+  .footer-right {
+    flex: 1 1 35%;
+    max-width: 360px;
+    display:flex;
+    gap: 32px;
+    justify-content: flex-end;
+    align-items:flex-start;
+    flex-direction: column;
+  }
+  
+  /* top-level nav links (stacked horizontally in screenshot line) */
+  .footer-links {
+    display:flex;
+    gap: 18px;
+    align-items:center;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+  }
+  .footer-links a {
+    color:#444;
+    text-decoration:none;
+    font-size:14px;
+    padding: 6px 4px;
+  }
+  
+  /* Contacts column */
+  .footer-contacts {
+    display:flex;
+    flex-direction:column;
+    gap: 18px;
+    align-items:flex-end;
+  }
+  
+  .contact-block {
+    text-align: right;
+    min-width: 190px;
+  }
+  
+  .contact-title {
+    color: #e53935; /* red like in screenshot */
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  
+  .contact-line {
+    color: #6b6b6b;
+    font-size: 13px;
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  /* ========== MOBILE RESPONSIVE (Tighter Spacing) ========== */
+@media (max-width: 768px) {
+    /* Hero */
+    .howitworks-hero {
+      padding: 40px 16px;   /* was 60px */
+    }
+    .howitworks-hero h2 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .howitworks-hero p {
+      font-size: 0.9rem;
+      margin-bottom: 28px;  /* was 40px */
+      line-height: 1.5;
+    }
+  
+    /* Steps layout */
+    .steps-container {
+      gap: 28px;   /* was 40px */
+    }
+    .step-item {
+      flex-direction: column;
+      text-align: center;
+      gap: 16px;   /* reduce spacing inside each step */
+    }
+    .step-content {
+      text-align: center !important;
+      padding: 0 6px;
+    }
+    .step-image img {
+      width: 120px; /* slightly smaller */
+    }
+    .step-center {
+      flex-direction: row;
+      width: 100%;
+      justify-content: center;
+      margin: 10px 0;  /* was 16px */
+    }
+    .step-line {
+      display: none;
+    }
+  
+    /* Reduce space before next section */
+    .howitworks-video {
+      padding: 40px 16px;  /* was 60px */
+    }
+    .howitworks-video h2 {
+      font-size: 1.2rem;
+      margin-bottom: 16px; /* tighter */
+    }
+  }
+  
