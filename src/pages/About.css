@@ -1,4 +1,3 @@
-/* Base / resets */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root{
@@ -7,15 +6,14 @@
   --muted: #222;
   --copy: #a6a6a6;
 
-  /* Set these to your exported blob image dimensions (or tweak to taste) */
-  --visual-width: 820px;            /* width of the centered blob image */
-  --visual-height: 320px;           /* visible height of the blob image (used for vertical calculations) */
+  
+  --visual-width: 820px;         
+  --visual-height: 320px;          
 
-  /* width of the right copy column and vertical nudge for precise placement */
   --copy-column-width: 360px;
-  --copy-vertical-offset: 38px;     /* increase to push the copy lower; decrease to raise it */
+  --copy-vertical-offset: 38px;   
 
-  /* NEW: raise the visual up by this many pixels (positive number => image moves up) */
+
   --visual-raise: 48px;
 }
 .navbar-inner {
@@ -24,8 +22,8 @@
   padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between; /* keeps logo left + button right */
-  position: relative; /* allows absolute positioning of nav-links */
+  justify-content: space-between; 
+  position: relative; 
 }
 
 .logo {
@@ -88,7 +86,7 @@
 .about-heading .muted { font-weight:200; color:#222; }
 .about-heading .accent { color:var(--accent); font-weight:200; }
 
-/* VISUAL ROW: center the blob image on the page; contains absolutely-positioned copy aligned to the right edge of image */
+
 .visual-row {
   grid-column: 1 / 3;
   position: relative;               /* required so the copy can be positioned relative to this row */
@@ -109,20 +107,15 @@
   width: 100%;
   height: auto;
   display: block;
-  /* blob image should already be exported from Figma with the mask cut-out */
+
 }
 
-/* RIGHT COPY: absolute so it sits exactly at the right end of the centered image */
-/* Calculation explanation:
-   - (100% - --visual-width) / 2 = left margin around the centered image
-   - placing right: that value aligns the right edge of the copy with the right edge of the image
-   - we subtract --visual-raise in the top calc so the copy follows the raised image
-*/
+
 .about-copy-right {
   position: absolute;
   width: var(--copy-column-width);
   right: calc((100% - var(--visual-width)) / 2);
-  /* adjust vertical placement: base on visual height and nudge, then subtract raised amount */
+
   top: calc(var(--visual-height) * 0.58 + var(--copy-vertical-offset) - var(--visual-raise));
   transform: translateY(-8px); /* small fine-tune if needed */
   pointer-events: auto;
@@ -139,28 +132,6 @@
   font-weight: 400;
 }
 
-/* Responsive adjustments - ensure copy stays correct on narrow screens */
-/* @media (max-width: 1000px) {
-  .about-container { grid-template-columns: 1fr; gap: 28px; padding: 0 20px; }
-  .about-left { grid-column: 1 / 2; }
-  .visual-row { grid-column: 1 / 2; padding-bottom: 0; min-height: auto; }
-  .about-visual { width: 100%; max-width: 100%; transform: none; }
-  .about-photo { width: 100%; height: auto; border-radius: 12px; }
-  .about-copy-right {
-    position: static;
-    width: 100%;
-    transform: none;
-    top: auto;
-    right: auto;
-    margin: 10px auto 0;
-    text-align: center;
-  }
-  .about-copy-line { text-align: center; font-size: 16px; }
-  .about-heading { font-size: 36px; line-height: 1.05; }
-  .create-account { display: none; }
-} */
-
-/* Wide-screen tweaks */
 @media (min-width: 1400px) {
   :root {
     --visual-width: 900px;
@@ -173,16 +144,16 @@
 }
 
 
-/* WHO WE ARE SECTION — centered, professional, adjustable offset */
+
 :root {
-    /* optional nudge to move the WHO WE ARE block slightly right (default 0%). */
-    --who-offset: 0%; /* set to 4% or 6% if you want a slight right shift */
+  
+    --who-offset: 0%; 
   }
   
   .who-we-are {
     grid-column: 1 / 3;
     max-width: 1100px;
-    /* pulled up from 80px -> 36px so the section sits closer */
+    
     margin: -30px auto 24px;
     transform: translateX(var(--who-offset));
     text-align: center;
@@ -190,7 +161,7 @@
     box-sizing: border-box;
   }
   
-  /* Heading and subtitle */
+
   .who-heading {
     font-size: 28px;
     font-weight: 600;
@@ -199,23 +170,23 @@
     max-width: 720px;
   }
   
-/* make the subtitle match the Figma screenshot: smaller, lighter, tighter width */
+
 .who-subtitle {
   font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  font-size: 13px;              /* smaller than body copy */
-  font-weight: 300;             /* very light */
-  color: rgba(34, 34, 34, 0.45);/* muted grey, slightly transparent */
-  max-width: 560px;             /* narrow line length like the design */
-  margin: 8px auto 48px;        /* sit closer to heading, keep space below for cards */
-  line-height: 1.5;             /* tighter than before */
-  letter-spacing: 0.2px;        /* subtle tracking to match Figma */
+  font-size: 13px;            
+  font-weight: 300;           
+  color: rgba(34, 34, 34, 0.45);
+  max-width: 560px;           
+  margin: 8px auto 48px;        
+  line-height: 1.5;        
+  letter-spacing: 0.2px;       
   text-align: center;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
   
-  /* Grid for the 3 items — items centered and evenly spaced */
+ 
   .who-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
