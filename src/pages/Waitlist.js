@@ -49,9 +49,9 @@ const Waitlist = () => {
             and early access.
           </p>
           <div className="social-icons">
-            <a href="j"><i className="fab fa-instagram"></i></a>
-            <a href="ik"><i className="fab fa-tiktok"></i></a>
-            <a href="n"><i className="fab fa-x-twitter"></i></a>
+            <a href="https://www.instagram.com/stratoshq?igsh=emk3b3Y4YTRqOWxy&utm_source=qr"><i className="fab fa-instagram"></i></a>
+            <a href="www.tiktok.com"><i className="fab fa-tiktok"></i></a>
+            <a href="https://www.linkedin.com/company/stratos-hq/"><i className="fab fa-linkedin-in"></i></a>
           </div>
         </div>
         <div className="success-right">
