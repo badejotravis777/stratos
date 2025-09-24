@@ -70,12 +70,15 @@
     color: white;
   }
   
-  /* Hero Section */
-  .hero {
-    padding: 5rem 2rem 2rem;
-    text-align: center;
-    background: url("../assets/hero-bg.png")
-  }
+/* Hero Section */
+.hero {
+  padding: 5rem 2rem 2rem;
+  text-align: center;
+  background: url("../assets/hero-bg.png");
+  background-size: cover;
+  background-position: center;
+}
+
   
   .hero-content {
     max-width: 900px;
