@@ -5,7 +5,7 @@
     font-family: "Inter", sans-serif;
   }
   
-  /* LEFT COLUMN */
+
   .waitlist-left {
     flex: 1;
     padding: 60px 80px;
@@ -36,7 +36,7 @@
     line-height: 1.6;
   }
   
-  /* FORM */
+
   .waitlist-form {
     display: flex;
     flex-direction: column;
@@ -63,10 +63,10 @@
     margin-bottom: 18px;
   }
   
-  /* FORM INPUTS + SELECTS */
+
 .waitlist-form input,
 .waitlist-form select {
-  appearance: none;              /* removes default styling */
+  appearance: none;              
   -webkit-appearance: none;
   -moz-appearance: none;
 
@@ -81,20 +81,19 @@
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-/* Placeholder style */
+
 .waitlist-form input::placeholder {
   color: #aaa;
   font-size: 14px;
 }
 
-/* Focus state */
 .waitlist-form input:focus,
 .waitlist-form select:focus {
   border-color: #ff6600;
   background: #fff;
 }
 
-/* CUSTOM SELECT DROPDOWN ARROW */
+
 .waitlist-form select {
   background-image: url("data:image/svg+xml;utf8,<svg fill='%23999' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
   background-repeat: no-repeat;
@@ -103,12 +102,12 @@
   cursor: pointer;
 }
 
-/* Remove IE arrow */
+
 .waitlist-form select::-ms-expand {
   display: none;
 }
 
-  /* BUTTON */
+
   .join-btn {
     background: #f7931e;
     color: #fff;
@@ -125,7 +124,7 @@
     background: #e67808;
   }
   
-  /* RIGHT COLUMN */
+
   .waitlist-right {
     flex: 1;
     background: #f8f8f8;
@@ -205,11 +204,7 @@
     border-radius: 30px;
   }
   
-  /* ============================= */
-/* RESPONSIVE STYLES */
-/* ============================= */
-
-/* Tablets (<=1024px) */
+  
 @media (max-width: 1024px) {
     .waitlist-page {
       flex-direction: column;
@@ -253,7 +248,7 @@
     }
   }
   
-  /* Mobile (<=768px) */
+  
   @media (max-width: 768px) {
     .waitlist-page {
       flex-direction: column;
@@ -320,8 +315,7 @@
       max-width: 80%;
     }
   }
-  
-  /* Small phones (<=480px) */
+
   @media (max-width: 480px) {
     .waitlist-left h1 {
       font-size: 20px;
