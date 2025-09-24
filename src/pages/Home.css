@@ -73,7 +73,7 @@ html {
 .hero {
   padding: 5rem 2rem 2rem;
   text-align: center;
-
+  background: url("../assets/hero-bg.png");
 }
 
 
