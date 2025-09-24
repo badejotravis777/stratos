@@ -1,3 +1,7 @@
+/* ==================== */
+/* WAITLIST PAGE STYLES */
+/* ==================== */
+
 .waitlist-page {
     display: flex;
     height: 100vh;
@@ -5,7 +9,7 @@
     font-family: "Inter", sans-serif;
   }
   
-
+  /* LEFT SIDE */
   .waitlist-left {
     flex: 1;
     padding: 60px 80px;
@@ -13,7 +17,7 @@
     flex-direction: column;
     justify-content: flex-start;
     background: #fff;
-    align-items: flex-start; /* keeps logo + form aligned */
+    align-items: flex-start;
   }
   
   .waitlist-logo {
@@ -36,11 +40,11 @@
     line-height: 1.6;
   }
   
-
+  /* FORM */
   .waitlist-form {
     display: flex;
     flex-direction: column;
-    gap: 35px;
+    gap: 28px;
     width: 100%;
     max-width: 460px;
   }
@@ -60,74 +64,71 @@
     font-size: 14px;
     font-weight: 500;
     color: #333;
-    margin-bottom: 18px;
+    margin-bottom: 10px;
   }
   
-
-.waitlist-form input,
-.waitlist-form select {
-  appearance: none;              
-  -webkit-appearance: none;
-  -moz-appearance: none;
-
-  width: 100%;
-  padding: 14px 16px;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  font-size: 15px;
-  background: #fafafa;
-  color: #333;
-  outline: none;
-  transition: border-color 0.2s ease, background 0.2s ease;
-}
-
-
-.waitlist-form input::placeholder {
-  color: #aaa;
-  font-size: 14px;
-}
-
-.waitlist-form input:focus,
-.waitlist-form select:focus {
-  border-color: #ff6600;
-  background: #fff;
-}
-
-
-.waitlist-form select {
+  .waitlist-form input,
+  .waitlist-form select,
+  .waitlist-form textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    font-size: 15px;
+    background: #fafafa;
+    color: #333;
+    outline: none;
+    transition: border-color 0.2s ease, background 0.2s ease;
+  }
   
- background-repeat: no-repeat;
-  background-position: right 12px center;
-  background-size: 16px;
-  cursor: pointer;
-}
-
-
-.waitlist-form select::-ms-expand {
-  display: none;
-}
-
-
+  .waitlist-form input::placeholder {
+    color: #aaa;
+    font-size: 14px;
+  }
+  
+  .waitlist-form input:focus,
+  .waitlist-form select:focus,
+  .waitlist-form textarea:focus {
+    border-color: #ff6600;
+    background: #fff;
+  }
+  
+  .waitlist-form select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    cursor: pointer;
+  }
+  
+  .waitlist-form select::-ms-expand {
+    display: none;
+  }
+  
+  .waitlist-form button,
   .join-btn {
+    padding: 14px 22px;
+    border: none;
+    border-radius: 8px;
     background: #f7931e;
     color: #fff;
-    border: none;
-    border-radius: 6px;
-    padding: 14px 18px;
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: background 0.3s ease;
   }
   
+  .waitlist-form button:hover,
   .join-btn:hover {
     background: #e67808;
   }
   
-
+  /* RIGHT SIDE (illustration / image) */
   .waitlist-right {
     flex: 1;
-    background: #f8f8f8;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -140,23 +141,7 @@
     object-fit: cover;
   }
   
-
-  .custom-input {
-    margin-top: 12px;
-    padding: 14px 16px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 15px;
-    outline: none;
-    width: 100%;
-  }
-  
-  .custom-input:focus {
-    border-color: #ff6600;
-  }
-  
-
-
+  /* SUCCESS SCREEN */
   .success-screen {
     display: flex;
     align-items: center;
@@ -173,7 +158,7 @@
   
   .success-left .check-icon {
     font-size: 50px;
-    color: #ff7a00; /* your brand orange */
+    color: #ff7a00;
     margin-bottom: 20px;
   }
   
@@ -204,8 +189,11 @@
     border-radius: 30px;
   }
   
+  /* ==================== */
+  /* RESPONSIVE STYLES */
+  /* ==================== */
   
-@media (max-width: 1024px) {
+  @media (max-width: 1024px) {
     .waitlist-page {
       flex-direction: column;
       height: auto;
@@ -248,14 +236,7 @@
     }
   }
   
-  
   @media (max-width: 768px) {
-    .waitlist-page {
-      flex-direction: column;
-      height: auto;
-      padding: 20px;
-    }
-  
     .waitlist-left {
       padding: 20px;
       align-items: center;
@@ -292,11 +273,7 @@
     }
   
     .waitlist-right {
-      padding: 20px 0;
-    }
-  
-    .waitlist-image {
-      max-width: 90%;
+      display: none;
     }
   
     .success-screen {
@@ -315,7 +292,7 @@
       max-width: 80%;
     }
   }
-
+  
   @media (max-width: 480px) {
     .waitlist-left h1 {
       font-size: 20px;
