@@ -1,0 +1,341 @@
+.signup-page {
+    display: flex;
+    height: 100vh;
+    background: #fff;
+    font-family: "Inter", sans-serif;
+  }
+  
+  /* LEFT SIDE */
+  .signup-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+  }
+  
+  .signup-form {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Title */
+  .title-section {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+  
+  .signup-form h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 8px;
+  }
+  
+  .subtitle {
+    color: #777;
+    font-size: 14px;
+  }
+  
+  /* container */
+.upload-icon {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: #f1f1f1;
+    display: inline-flex;            /* keep it centered and predictable */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 35px auto 24px;
+    position: relative;
+    overflow: hidden;                /* keeps photos inside circle */
+    border: 2px solid #f7931a;
+    transition: transform .2s ease-in-out;
+    box-sizing: border-box;
+    line-height: 0;                  /* <— critical: prevents baseline clipping */
+  }
+  
+  /* images (when user uploaded a photo) */
+  .upload-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  
+
+  .upload-icon svg,
+  .upload-camera {
+    width: 56px;                    
+    height: 56px;
+    max-width: 70%;
+    max-height: 70%;
+    display: block;            
+  
+    flex-shrink: 0;
+    pointer-events: none;   
+       
+  }
+  
+
+  .upload-icon:hover {
+    transform: scale(1.03);
+  }
+  
+  
+  .upload-input {
+    display: none;
+  }
+  
+  /* Inputs */
+  .signup-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .signup-form input,
+  .signup-form select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #f7931a;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    margin-bottom: 25px;
+    appearance: none;
+    background-color: #fff;
+    transition: border-color 0.2s;
+  }
+  
+  .signup-form select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23f7931a' height='24' viewBox='0 0 24 24' width='24'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+  }
+  
+  .signup-form input:focus,
+  .signup-form select:focus {
+    border-color: #f57600;
+  }
+  
+  /* Button */
+  .signup-btn {
+    background: #f7931a;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.2s;
+  }
+  
+  .signup-btn:hover {
+    opacity: 0.9;
+  }
+  
+  /* Bottom Text */
+  .login-text {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+  }
+  
+  .login-text a {
+    color: #f7931a;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  /* Right side image */
+  .signup-right {
+    flex: 1;
+    background-color: #fafafa;
+  }
+  
+  .signup-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Messages */
+  .error-msg {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .success-msg {
+    color: green;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .password-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px; /* reduced from 25px */
+  }
+  
+  .password-wrapper input {
+    width: 100%;
+    padding: 14px 46px 14px 14px; /* space for the icon */
+    border: 1px solid #f7931a;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+    transition: border-color 0.2s;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center; /* centers icon vertically */
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .password-icon {
+    color: #808080;
+    font-size: 22px;
+    transition: all 0.2s ease;
+    position: relative;
+    top: -12px; /* 👈 tiny manual lift for finer control */
+  }
+  
+  .password-icon:hover {
+    color: #808080;
+    transform: scale(1.1);
+  }
+  
+  /* Industry dropdown fix */
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 0; /* 👈 remove any extra top gap */
+    margin-bottom: 20px; /* consistent spacing with password */
+  }
+  
+  .select-wrapper select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #f7931a;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: #fff;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23f7931a' height='22' viewBox='0 0 24 24' width='22' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 18px;
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    color: #444;
+  }
+  
+  /* Fix for placeholder option text style */
+  .select-wrapper select option[value=""] {
+    color: #999 !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-family: "Inter", sans-serif !important;
+  }
+  
+  /* Ensure it looks identical to input placeholder before selection */
+  .select-wrapper select:invalid {
+    color: #999;
+  }
+  
+  /* Once a real option is selected */
+  .select-wrapper select option {
+    color: #444;
+    font-weight: 400;
+  }
+  
+  .checkbox-row {
+    display: flex;
+    align-items: center; /* centers vertically */
+    gap: 10px;
+    margin-bottom: 25px;
+    margin-top: -35px;
+    line-height: 1.4;
+  }
+  
+  .checkbox-row input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #808080;
+    border: 1.5px solid #808080;
+    border-radius: 4px;
+    appearance: none; /* reset native style */
+    cursor: pointer;
+    position: relative;
+    top: 6px; /* fine-tune to align better */
+  }
+  
+  .checkbox-row input[type="checkbox"]:checked {
+    background-color: #f7931a;
+    border-color: #808080;
+  }
+  
+  .terms-label {
+    font-size: 13.5px;
+    color: #333;
+    margin: 0;
+    display: inline-block;
+  }
+  
+  .terms-label span {
+    color: #f7931a;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+  
+  .terms-label span:hover {
+    color: #f57600;
+    text-decoration: underline;
+  }
+  
+
+  /* Fix spacing consistency between password and industry */
+.password-wrapper {
+    margin-bottom: 5px !important; /* reduce slightly */
+  }
+  
+  .select-wrapper label {
+    margin-top: 0 !important; /* remove top gap before dropdown */
+  }
+  
+  .select-wrapper {
+    margin-top: 0 !important; /* no double spacing */
+    margin-bottom: 25px; /* match normal input spacing */
+  }
+  
+  /* Ensure consistent vertical rhythm for all fields */
+  .signup-form label + input,
+  .signup-form label + select,
+  .password-wrapper + .select-wrapper {
+    margin-top: 0 !important;
+  }
+  
+
+  .upload-image {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  

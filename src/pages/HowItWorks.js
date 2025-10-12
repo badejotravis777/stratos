@@ -81,7 +81,7 @@ const handleSubscribe = (e) => {
             <NavLink to="/pricing" className={({ isActive }) => isActive ? 'nav-active' : ''}>Pricing</NavLink>
           </nav>
 
-          <NavLink to="/signup" className="create-account">Create Account</NavLink>
+          <NavLink to="" className="create-account">Create Account</NavLink>
 
           {/* Animated Hamburger */}
           <div
@@ -94,6 +94,19 @@ const handleSubscribe = (e) => {
           </div>
         </div>
       </header>
+
+   {/* HOW IT WORKS VIDEO SECTION */}
+   <section className="howitworks-video">
+  <h2>How It Works</h2>
+  <div className="video-card">
+    <video
+      src={require("../assets/startos.mp4")} // your video in assets
+      className="video-thumb"
+      controls
+      poster={require("../assets/howitworks-thumb1.png")} // optional: fallback thumbnail
+    />
+  </div>
+</section>
 
       {/* HERO SECTION */}
       <section className="howitworks-hero">
@@ -143,18 +156,6 @@ const handleSubscribe = (e) => {
         </div>
       </section>
 
-   {/* HOW IT WORKS VIDEO SECTION */}
-<section className="howitworks-video">
-  <h2>How It Works</h2>
-  <div className="video-card">
-    <video
-      src={require("../assets/startos.mp4")} // your video in assets
-      className="video-thumb"
-      controls
-    //   poster={require("../assets/howitworks-thumb.png")} // optional: fallback thumbnail
-    />
-  </div>
-</section>
 
 
 {/* FAQ Section */}

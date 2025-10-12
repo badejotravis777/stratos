@@ -99,11 +99,12 @@
 .howitworks-video {
     padding: 80px 20px;
     text-align: center;
+
   }
   
   /* Title */
   .howitworks-video h2 {
-    font-size: 1.6rem;
+    font-size: 2.6rem;
     font-weight: 500;
     color: #222;
     margin-bottom: 24px;

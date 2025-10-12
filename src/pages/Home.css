@@ -63,6 +63,7 @@ html {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s;
+  text-decoration: none;
 }
 
 .create-account:hover {
@@ -809,36 +810,52 @@ transform: rotate(-45deg);
 top: 9px;
 }
 
-/* Nav for mobile */
+/* ✅ FIX: Navbar dropdown covering issue on mobile */
 @media (max-width: 860px) {
-.nav-links {
-  position: absolute;
-  top: 70px;
-  right: 0;
-  background: white;
-  width: 100%;
-  flex-direction: column;
-  gap: 1.5rem;
-  padding: 2rem;
-  transform: translateY(-120%);
-  opacity: 0;
-  transition: all 0.4s ease;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  .nav-links {
+    position: fixed; /* instead of absolute */
+    top: 70px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2rem 1.5rem;
+    transform: translateY(-120%);
+    opacity: 0;
+    transition: all 0.4s ease;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+    z-index: 9999; /* ensures it’s on top of everything */
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* Prevent hero section from overlapping */
+  .hero {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Add smooth layering for button */
+  .waitlist-btn1 {
+    position: relative;
+    z-index: 1;
+  }
+
+  .hamburger {
+    display: block;
+  }
+  
+  .create-account {
+    display: none; 
+  }
 }
 
-.nav-links.open {
-  transform: translateY(0);
-  opacity: 1;
-}
 
-.hamburger {
-  display: block;
-}
 
-.create-account {
-  display: none; /* hide separate button for simplicity */
-}
-}
 
 /* Hero */
 @media (max-width: 768px) {
@@ -863,8 +880,26 @@ top: 9px;
 }
 
 /* Hide image on small screens */
-.better-tools-image {
+/* .better-tools-image {
   visibility: hidden;
+} */
+
+.better-tools-image {
+  visibility: visible !important;
+  opacity: 1 !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.better-tools-image img {
+  width: 85%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
 }
 }
 
@@ -1093,3 +1128,59 @@ border: 1px solid #d93025;
 .feedback-icon {
 font-size: 18px;
 }
+
+
+
+/* --- FIX: Social icons visibility on mobile --- */
+@media (max-width: 768px) {
+  .footer-socials {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 1.2rem !important;
+    margin-top: 1.5rem !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-right: 59% !important;
+  }
+
+  .footer-socials a,
+  .social-circle {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: #222 !important; /* ensures icons are visible */
+    border-radius: 50% !important;
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .footer-socials svg,
+  .footer-socials i,
+  .social-circle svg,
+  .social-circle i {
+    fill: #fff !important;
+    color: #fff !important;
+    width: 18px !important;
+    height: 18px !important;
+    visibility: visible !important;
+  }
+}
+
+
+
+/* @media (max-width: 768px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: left;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .footer-socials {
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  
+} */

@@ -70,7 +70,7 @@ const handleSubscribe = (e) => {
             <NavLink to="/pricing" className={({ isActive }) => isActive ? 'nav-active' : ''}>Pricing</NavLink>
           </nav>
 
-          <NavLink to="/signup" className="create-account">Create Account</NavLink>
+          <NavLink to="" className="create-account">Create Account</NavLink>
 
           {/* Animated Hamburger */}
           <div
@@ -119,10 +119,10 @@ const handleSubscribe = (e) => {
         <section className="who-we-are">
           <h2 className="who-heading">Who We Are</h2>
           <p className="who-subtitle">
-            some actual important text that’s gonna be the subtitle but we gotta make it long 
-            because it has to be long you get me
-          </p>
-
+    We’re a passionate collective of designers, developers, and strategists 
+    building solutions that move brands forward. Every project we take on is 
+    rooted in creativity, technology, and a clear mission to make an impact.
+  </p>
           <div className="who-grid">
   <div className="who-item">
     <div className="who-icon">
@@ -163,8 +163,9 @@ const handleSubscribe = (e) => {
     <section className="who-we-serve">
   <h2 className="serve-heading">Who We Serve</h2>
   <p className="serve-subtitle">
-    some actual important text that's gonna be the subtitle but we gotta make it long
-    because it has to be long you get me
+    We partner with ambitious brands, startups, and organizations looking to make
+    a lasting impact. Whether you’re building from the ground up or scaling new heights,
+    we provide the expertise and creativity to bring your vision to life.
   </p>
 
   <div className="serve-images">

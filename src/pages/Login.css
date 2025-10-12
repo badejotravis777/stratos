@@ -1,0 +1,156 @@
+.login-page {
+    display: flex;
+    height: 100vh;
+    background: #fff;
+    font-family: "Inter", sans-serif;
+  }
+  
+  /* LEFT SIDE */
+  .login-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 80px;
+  }
+  
+  .login-form {
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  /* Title */
+  .title-section {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+  
+  .login-form h2 {
+    font-size: 26px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 8px;
+  }
+  
+  .subtitle {
+    color: #777;
+    font-size: 14px;
+  }
+  
+  /* Inputs */
+  .login-form label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #f7931a;
+    border-radius: 8px;
+    outline: none;
+    font-size: 14px;
+    margin-bottom: 25px;
+    background-color: #fff;
+    transition: border-color 0.2s;
+  }
+  
+  .login-form input:focus {
+    border-color: #f57600;
+  }
+  
+  /* Password wrapper */
+  .password-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .password-wrapper input {
+    width: 100%;
+    padding: 14px 46px 14px 14px;
+    border: 1px solid #f7931a;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  .toggle-password {
+    position: absolute;
+    right: 14px;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+  
+  .password-icon {
+    color: #808080;
+    font-size: 22px;
+    transition: 0.2s ease;
+    position: relative;
+    top: -12px;
+  }
+  
+  /* Button */
+  .login-btn {
+    background: #f7931a;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: 0.2s;
+  }
+  
+  .login-btn:hover {
+    opacity: 0.9;
+  }
+  
+  /* Bottom Text */
+  .signup-text {
+    margin-top: 25px;
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+  }
+  
+  .signup-text a {
+    color: #f7931a;
+    font-weight: 500;
+    text-decoration: none;
+  }
+  
+  /* Right side image */
+  .login-right {
+    flex: 1;
+    background-color: #fafafa;
+  }
+  
+  .login-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Messages */
+  .error-msg {
+    color: red;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  
+  .success-msg {
+    color: green;
+    font-size: 13px;
+    margin-bottom: 10px;
+  }
+  

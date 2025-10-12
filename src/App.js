@@ -7,6 +7,8 @@ import Pricing from './pages/Pricing';
 import HIW from './pages/HowItWorks';
 import Features from './pages/Features';
 import Waitlist from "./pages/Waitlist";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -18,6 +20,9 @@ function App() {
         <Route path="/how-it-works" element={<HIW/>} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/waitlist" element={<Waitlist />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
+
       </Routes>
     </Router>
   );

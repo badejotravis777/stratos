@@ -98,7 +98,7 @@ const handleSubscribe = (e) => {
             <NavLink to="/pricing" className={({ isActive }) => isActive ? 'nav-active' : ''}>Pricing</NavLink>
           </nav>
 
-          <NavLink to="/signup" className="create-account">Create Account</NavLink>
+          <NavLink to="" className="create-account">Create Account</NavLink>
 
           {/* Animated Hamburger */}
           <div
