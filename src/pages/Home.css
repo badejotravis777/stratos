@@ -681,7 +681,7 @@ display: inline-flex;
 width: 36px;
 height: 36px;
 border-radius: 50%;
-background: #222;
+background: #bb2020;
 align-items: center;
 justify-content: center;
 text-decoration: none;
@@ -809,11 +809,11 @@ opacity: 0;
 transform: rotate(-45deg);
 top: 9px;
 }
-
-/* ✅ FIX: Navbar dropdown covering issue on mobile */
+/* ✅ Final Fix for Navbar + Waitlist Button Layer Conflict */
 @media (max-width: 860px) {
+  /* Make sure nav links sit above only when open */
   .nav-links {
-    position: fixed; /* instead of absolute */
+    position: fixed;
     top: 70px;
     left: 0;
     right: 0;
@@ -823,35 +823,39 @@ top: 9px;
     padding: 2rem 1.5rem;
     transform: translateY(-120%);
     opacity: 0;
+    pointer-events: none; /* 🔹 prevent blocking clicks when hidden */
     transition: all 0.4s ease;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
-    z-index: 9999; /* ensures it’s on top of everything */
+    z-index: 9999;
   }
 
+  /* When open, make it interactive */
   .nav-links.open {
     transform: translateY(0);
     opacity: 1;
+    pointer-events: all; /* 🔹 re-enable clicks */
   }
 
-  /* Prevent hero section from overlapping */
-  .hero {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Add smooth layering for button */
+  /* Ensure button always stays clickable when menu is closed */
   .waitlist-btn1 {
+    position: relative;
+    z-index: 10000; /* 🔹 always above everything except open nav */
+  }
+
+  /* Keep hero and other sections below nav */
+  .hero, .hero-content {
     position: relative;
     z-index: 1;
   }
 
   .hamburger {
-    display: block;
-  }
-  
-  .create-account {
-    display: none; 
-  }
+  display: block;
+}
+
+.create-account {
+  display: none; 
+}
+
 }
 
 
@@ -1074,17 +1078,17 @@ visibility: hidden;
 /* 🔹 Fix socials */
 .footer-socials {
   display: flex;
-  justify-content: center;
+  justify-content: center !important;
   gap: 1rem;
-  margin-top: 1rem;
-  visibility: visible;
+  margin-top: 1rem !important;
+  visibility: visible !important;
 }
 
 .footer-socials a img,
 .footer-socials a svg {
   width: 28px;
   height: 28px;
-  visibility: visible;
+  visibility: visible !important;
 }
 }
 
@@ -1184,3 +1188,6 @@ font-size: 18px;
 
   
 } */
+
+
+
