@@ -1,0 +1,177 @@
+.navbar {
+    background-color: #0b0b0f;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo {
+    height: 32px;
+    margin-right: auto;
+  }
+  
+  .nav-links {
+    display: flex;
+    gap: 24px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%); /* centers it horizontally in navbar */
+  }
+  
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 6px 4px;
+  }
+  
+  .nav-active {
+    font-weight: 700;
+    color: var(--accent);
+    border-bottom: 2px solid rgba(255, 92, 0, 0.12);
+  }
+
+  .navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-left: auto;
+  }
+  
+  .login-link {
+    color: #cfcfcf;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+  }
+  
+  .login-link:hover {
+    color: #fff;
+  }
+  
+  .join-btn {
+    background-color: #F97316;
+    color: #FFFFFF;
+    padding: 12px 28px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+  }
+  
+  .join-btn:hover {
+    background-color: #EA580C;
+  }
+  
+  .hamburger {
+    display: none;
+    width: 28px;
+    height: 22px;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .hamburger span {
+    background: #fff;
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    border-radius: 3px;
+    transition: all 0.4s ease;
+  }
+  
+  .hamburger span:nth-child(1) { top: 0; }
+  .hamburger span:nth-child(2) { top: 9px; }
+  .hamburger span:nth-child(3) { top: 18px; }
+  
+  .hamburger.active span:nth-child(1) { transform: rotate(45deg); top: 9px; }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: rotate(-45deg); top: 9px; }
+  
+  @media (max-width: 860px) {
+    .nav-links {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background: #0b0b0f;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem 1.5rem;
+      transform: translateY(-120%);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      z-index: 9999;
+    }
+  
+    .nav-links.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+  
+    .navbar-actions {
+      display: none;
+    }
+  
+    .hamburger {
+      display: block;
+    }
+  }
+
+  /* Add this to your Navbar.css or Home.css */
+.navbar a, 
+.nav-links a {
+  color: #a3a3a3 !important; 
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover, 
+.nav-links a:hover {
+  color: #ffffff !important;
+}
+
+.navbar .join-btn,
+.navbar-actions .join-btn {
+  background-color: #F97316 !important;
+  color: #FFFFFF !important; /* Overrides the previous !important gray link color */
+  padding: 12px 28px !important;
+  border-radius: 100px !important; /* Forces the pill shape */
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  text-decoration: none;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  border: none !important;
+}
+
+.navbar .join-btn:hover,
+.navbar-actions .join-btn:hover {
+  background-color: #EA580C !important;
+}
+
+
+
+

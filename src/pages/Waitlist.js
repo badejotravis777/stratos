@@ -2,217 +2,97 @@ import React, { useState } from "react";
 import emailjs from "emailjs-com";
 import { useNavigate } from "react-router-dom"; 
 import "./Waitlist.css";
-import logo from "../assets/stratos-logo.png";
-import heroImage from "../assets/waitlist-image.png";
-import successImg from "../assets/waitlist-image.png"; 
+import logo from "../assets/stratos-logo.png"; 
 
 const Waitlist = () => {
-  const [industry, setIndustry] = useState("");
-  const [customIndustry, setCustomIndustry] = useState("");
-  const [stage, setStage] = useState("");
-  const [customStage, setCustomStage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const navigate = useNavigate();
 
   const sendEmail = (e) => {
     e.preventDefault();
-
+    setIsSubmitting(true);
+  
     emailjs
       .sendForm(
-        "service_mjcwa2j", // ✅ your EmailJS service ID
-        "template_gby2nre", // ✅ your EmailJS template ID
+        "service_ueib6xh", 
+        "template_gby2nre", 
         e.target,
-        "d6TDjzKXpICXorApk" // ✅ your EmailJS public key
+        "d6TDjzKXpICXorApk" 
       )
       .then(
         (result) => {
-          setSubmitted(true); // ✅ show success screen
-          setTimeout(() => navigate("/"), 7000); // ✅ redirect after 7s
+          alert("Your request for early access has been submitted successfully.");
+          navigate("/"); 
         },
         (error) => {
-          alert("❌ Something went wrong. Please try again.");
-          console.error(error);
+          setIsSubmitting(false);
+          console.error("EmailJS Error Details:", error);
+          alert(`Error: ${error.text || JSON.stringify(error)}`);
         }
       );
   };
 
-  if (submitted) {
-    // ✅ Success screen after form submit
-    return (
-      <div className="success-screen">
-        <div className="success-left">
-          <div className="check-icon">✔️</div>
-          <h2>You’ve been added</h2>
-          <p>
-            Stay tuned, follow us on social media for updates, sneak peeks,
-            and early access.
-          </p>
-          <div className="social-icons">
-            <a href="https://www.instagram.com/stratoshq?igsh=emk3b3Y4YTRqOWxy&utm_source=qr"><i className="fab fa-instagram"></i></a>
-            <a href="www.tiktok.com"><i className="fab fa-tiktok"></i></a>
-            <a href="https://www.linkedin.com/company/stratos-hq/"><i className="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <div className="success-right">
-          <img src={successImg} alt="Success" />
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="waitlist-page">
-      <div className="waitlist-left">
-        <img src={logo} alt="Stratos HQ" className="waitlist-logo" />
-
-        <h1>Smarter Content, Faster Growth</h1>
-        <p>
-          Stratos is a new tool designed for creators <br />
-          to enhance their productivity and creativity.
+    <div className="waitlist-layout">
+      <button className="back-btn" onClick={() => navigate(-1)}>
+        &lt; Back
+      </button>
+      
+      <div className="waitlist-card">
+        <img src={logo} alt="Stratos HQ" className="card-logo" />
+        
+        <div className="early-access-badge">
+          {/* Professional SVG Star Icon */}
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#EA580C" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z" />
+          </svg>
+          EARLY ACCESS - LIMITED SPOTS
+        </div>
+        
+        <h1 className="card-title">One place to plan,<br />create, and grow.</h1>
+        <p className="card-desc">
+          Stratos is launching soon. Get in early and shape the product plus lock in founding member pricing.
         </p>
 
-        {/* FORM */}
-        <form className="waitlist-form" onSubmit={sendEmail}>
-          {/* NAME + EMAIL */}
-          <div className="form-row">
-            <div className="form-group">
-              <label>Full Name</label>
-              <input
-                type="text"
-                name="from_name"   // ✅ matches {{from_name}}
-                placeholder="Enter your full name"
-                required
-              />
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                name="from_email"  // ✅ matches {{from_email}}
-                placeholder="Enter your email address"
-                required
-              />
-            </div>
-          </div>
-
-          {/* INDUSTRY */}
-          <div className="form-group">
-          <label>What industry are you in?</label>
-  <select
-    value={industry}
-    onChange={(e) => setIndustry(e.target.value)}
-    required
-  >
-    <option value="">Select One</option>
-    <option>Advertising & Marketing</option>
-    <option>Aerospace & Defense</option>
-    <option>Agriculture</option>
-    <option>Automotive</option>
-    <option>Biotechnology</option>
-    <option>Construction & Real Estate</option>
-    <option>Consumer Goods</option>
-    <option>Design & Creative</option>
-    <option>Education</option>
-    <option>Energy & Utilities</option>
-    <option>Entertainment & Media</option>
-    <option>Finance & Banking</option>
-    <option>Government & Public Sector</option>
-    <option>Healthcare & Medical</option>
-    <option>Hospitality & Travel</option>
-    <option>Information Technology (IT)</option>
-    <option>Insurance</option>
-    <option>Legal Services</option>
-    <option>Logistics & Transportation</option>
-    <option>Manufacturing</option>
-    <option>Mining & Metals</option>
-    <option>Nonprofit & NGOs</option>
-    <option>Pharmaceuticals</option>
-    <option>Professional Services</option>
-    <option>Retail & E-Commerce</option>
-    <option>Science & Research</option>
-    <option>Sports & Recreation</option>
-    <option>Telecommunications</option>
-    <option>Textiles & Apparel</option>
-    <option>Technology (Software & Hardware)</option>
-    <option value="Other">Other</option>
-  </select>
-
-  {industry === "Other" && (
-    <input
-      type="text"
-      name="industry"   // 👈 always "industry"
-      placeholder="Please specify your industry"
-      value={customIndustry}
-      onChange={(e) => setCustomIndustry(e.target.value)}
-      className="custom-input"
-      required
-    />
-  )}
-
-  {industry !== "Other" && (
-    <input type="hidden" name="industry" value={industry} />
-  )}
-</div>
-
-{/* STAGE */}
-<div className="form-group">
-  <label>What stage are you at?</label>
-  <select
-    value={stage}
-    onChange={(e) => setStage(e.target.value)}
-    required
-  >
-    <option value="">Select One</option>
-    <option>Idea Stage</option>
-    <option>Pre-Seed</option>
-    <option>Seed</option>
-    <option>Early Stage</option>
-    <option>Growth Stage</option>
-    <option>Scaling</option>
-    <option>Established</option>
-    <option>Expansion</option>
-    <option>Mature / Enterprise</option>
-    <option value="Other">Other</option>
-  </select>
-
-  {stage === "Other" && (
-    <input
-      type="text"
-      name="stage"   // 👈 always "stage"
-      placeholder="Please specify your stage"
-      value={customStage}
-      onChange={(e) => setCustomStage(e.target.value)}
-      className="custom-input"
-      required
-    />
-  )}
-
-  {stage !== "Other" && (
-    <input type="hidden" name="stage" value={stage} />
-  )}
-          </div>
-
-          {/* EXPECTATION */}
-          <div className="form-group">
-            <label>What do you expect from Stratos HQ?</label>
+        <form className="waitlist-form-simple" onSubmit={sendEmail}>
+          <div className="input-wrapper">
+            {/* Professional SVG Envelope Icon */}
+            <svg className="input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9CA3AF" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
             <input
-              type="text"
-              name="expectation"  // ✅ matches {{expectation}}
-              placeholder="It could be a feature or an addition..."
+              type="email"
+              name="from_email" 
+              placeholder="your@email.com"
+              required
             />
           </div>
+          
+          <input type="hidden" name="from_name" value="Waitlist User" />
+          <input type="hidden" name="industry" value="N/A" />
+          <input type="hidden" name="stage" value="N/A" />
+          <input type="hidden" name="expectation" value="N/A" />
 
-          <button type="submit" className="join-btn">
-            Join Now
+          <button type="submit" className="submit-btn" disabled={isSubmitting}>
+            {isSubmitting ? "Submitting..." : "Get early access →"}
           </button>
         </form>
+        
+        <p className="no-spam">No spam. Unsubscribe anytime.</p>
+        
+        <div className="social-proof">
+          <div className="avatars">
+            <div className="avatar a1">A</div>
+            <div className="avatar a2">D</div>
+            <div className="avatar a3">M</div>
+            <div className="avatar a4">J</div>
+          </div>
+          <span className="proof-text"><strong>423 creators</strong> already waiting</span>
+        </div>
       </div>
 
-      {/* RIGHT SIDE IMAGE */}
-      <div className="waitlist-right">
-        <img src={heroImage} alt="Waitlist Hero" className="waitlist-image" />
-      </div>
+      <div className="bg-clouds"></div>
     </div>
   );
 };
