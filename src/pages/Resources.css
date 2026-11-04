@@ -1,0 +1,215 @@
+.resources-page {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .resources-section-header {
+    margin-bottom: 24px;
+    width: 100%;
+  }
+  
+  .resources-section-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+    color: #fff;
+  }
+  
+  .resources-subtext {
+    font-size: 0.85rem;
+    color: #9CA3AF;
+    margin: 4px 0 0;
+  }
+  
+  /* Pinned kit banner */
+  .pinned-kit-banner {
+    width: 100%;
+    background: linear-gradient(135deg, #1c1c20 0%, #2a2a30 100%);
+    border: 1px solid #2A2A2A;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 24px;
+    box-sizing: border-box;
+  }
+  
+  .pinned-label {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: #EA580C;
+    margin-bottom: 8px;
+  }
+  
+  .pinned-kit-banner h3 {
+    font-size: 1.15rem;
+    color: #fff;
+    margin: 0 0 6px;
+  }
+  
+  .pinned-kit-banner p {
+    font-size: 0.85rem;
+    color: #9CA3AF;
+    margin: 0 0 16px;
+    max-width: 520px;
+  }
+  
+  .get-kit-btn {
+    background: #EA580C;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  
+  .get-kit-btn:hover {
+    opacity: 0.9;
+  }
+  
+  /* Filter tabs */
+  .resource-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #2A2A2A;
+    padding-bottom: 12px;
+  }
+  
+  .resource-tab {
+    background: transparent;
+    border: none;
+    color: #9CA3AF;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .resource-tab:hover {
+    color: #fff;
+  }
+  
+  .resource-tab.active {
+    background: #2A1A14;
+    color: #EA580C;
+    font-weight: 600;
+  }
+  
+  /* Resource list */
+  .resources-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .resource-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 4px;
+    border-bottom: 1px solid #202020;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+  }
+  
+  .resource-row:hover {
+    background-color: #171717;
+  }
+  
+  .resource-row-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: #2A1A14;
+    color: #EA580C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .resource-row-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .resource-row-text h5 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 2px;
+  }
+  
+  .resource-row-text p {
+    font-size: 0.78rem;
+    color: #6B7280;
+    margin: 0;
+  }
+  
+  /* Community row */
+  .community-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1A1A1A;
+    border: 1px solid #2A2A2A;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-top: 20px;
+  }
+  
+  .community-row-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  
+  .community-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #2A1A14;
+    color: #EA580C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .community-icon svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .community-row-left h5 {
+    font-size: 0.9rem;
+    color: #fff;
+    margin: 0 0 2px;
+  }
+  
+  .community-row-left p {
+    font-size: 0.78rem;
+    color: #9CA3AF;
+    margin: 0;
+  }
+  
+  .join-now-btn {
+    background: #EA580C;
+    color: #fff;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.8rem;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  
+  .join-now-btn:hover {
+    opacity: 0.9;
+  }

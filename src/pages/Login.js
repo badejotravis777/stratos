@@ -1,98 +1,83 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./Login.css";
-import loginImage from "../assets/login-bg.png"; // same style image
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import React, { useState } from 'react';
+import { useNavigate, NavLink } from 'react-router-dom';
+import './Signup.css';
+import { supabase } from '../lib/supabaseClient';
+
+const EyeIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+);
 
 const Login = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg("");
-    setSuccessMsg("");
+    setError('');
     setLoading(true);
 
-    try {
-        await axios.post("http://localhost:5000/api/login",formData);
-      setSuccessMsg("Login successful!");
-      setTimeout(() => navigate("/dashboard"), 1500);
-    } catch (err) {
-      setErrorMsg(err.response?.data?.message || "Invalid credentials. Try again.");
-    } finally {
+    const { error: signInError } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (signInError) {
+      setError(signInError.message);
       setLoading(false);
+      return;
     }
+
+    navigate('/dashboard');
   };
 
   return (
-    <div className="login-page">
-      {/* LEFT SIDE */}
-      <div className="login-left">
-        <form className="login-form" onSubmit={handleSubmit}>
+    <div className="signup-page">
+      <div className="signup-left">
+        <form className="signup-form" onSubmit={handleSubmit}>
           <div className="title-section">
-            <h2>Welcome Back</h2>
-            <p className="subtitle">Please fill in your details below</p>
+            <h2>Welcome back</h2>
+            <p className="subtitle">Log in to your Stratos toolkit.</p>
           </div>
+
+          {error && <p className="error-msg">{error}</p>}
 
           <label>Email</label>
           <input
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
 
           <label>Password</label>
           <div className="password-wrapper">
             <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter a password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <span
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <FiEyeOff className="password-icon" />
-              ) : (
-                <FiEye className="password-icon" />
-              )}
+            <span className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
+              <span className="password-icon"><EyeIcon /></span>
             </span>
           </div>
 
-          {errorMsg && <p className="error-msg">{errorMsg}</p>}
-          {successMsg && <p className="success-msg">{successMsg}</p>}
-
-          <button type="submit" className="login-btn" disabled={loading}>
-            {loading ? "Logging in..." : "Log In"}
+          <button type="submit" className="signup-btn" disabled={loading}>
+            {loading ? 'Logging in...' : 'Log In'}
           </button>
 
-          <p className="signup-text">
-            You don’t have an account? <NavLink to="/signup">Sign Up</NavLink>
+          <p className="login-text">
+            Don't have an account? <NavLink to="/signup">Sign up</NavLink>
           </p>
         </form>
       </div>
 
-      {/* RIGHT SIDE */}
-      <div className="login-right">
-        <img src={loginImage} alt="Login" />
+      <div className="signup-right">
+        <img src="/signup-visual.jpg" alt="Stratos HQ" />
       </div>
     </div>
   );

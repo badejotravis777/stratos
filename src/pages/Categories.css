@@ -1,0 +1,76 @@
+.goals-section {
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.goals-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.goals-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.goals-header p {
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.goal-card {
+  background-color: #242424;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.goal-card:hover, .goal-card:focus-visible {
+  border-color: #555;
+  transform: translateY(-2px);
+  outline: none;
+}
+
+.goal-icon-wrapper {
+  background-color: #2a2a2a;
+  border: 1px solid #333;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  color: #f97316;
+}
+
+.goal-icon-wrapper svg { width: 20px; height: 20px; }
+
+.goal-card h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.goal-card p {
+  font-size: 0.85rem;
+  color: #888;
+  line-height: 1.4;
+}
+
+@media (max-width: 900px) {
+  .goals-grid { grid-template-columns: 1fr; }
+}

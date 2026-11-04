@@ -1,0 +1,374 @@
+.onboarding-details-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, #FFF5EB 0%, #FEE8CE 100%);
+    position: relative;
+    padding: 40px 24px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .bg-clouds {
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 400px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+    border-top-left-radius: 200px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* Stepper (Same as before, adjusting completed states) */
+  .progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 580px;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .step { display: flex; flex-direction: column; align-items: center; color: #9CA3AF; }
+  .step-circle { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #D1D5DB; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-bottom: 8px; background: #FFFFFF; }
+  .step-label { font-size: 11px; font-weight: 500; }
+  .step.completed { color: #9CA3AF; }
+  .step.completed .step-circle { background-color: #FFEDD5; color: #F97316; border-color: #FFEDD5; }
+  .step.active { color: #F97316; }
+  .step.active .step-circle { background-color: #F97316; color: white; border-color: #F97316; }
+  .step-divider { flex: 1; height: 2px; background-color: #E5E7EB; margin: 0 12px; margin-top: -20px; }
+  .step-divider.completed-divider { background-color: #FFEDD5; }
+  
+  /* Main Layout */
+  .content-wrapper {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    max-width: 800px;
+    z-index: 1;
+  }
+  
+  .details-card {
+    flex: 2;
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+  }
+  
+  .details-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  
+  .text-orange { color: #EA580C; }
+  
+  .details-subtitle {
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 32px;
+  }
+  
+  /* Form Inputs */
+  .input-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .input-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .input-group label, .section-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9CA3AF;
+    letter-spacing: 0.5px;
+  }
+  
+  .input-group input {
+    padding: 12px 16px;
+    border: 1px solid #E5E7EB;
+    border-radius: 12px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  .input-group input:focus { border-color: #F97316; }
+  
+  /* ... Keep top layout styling the same up to Roles Grid ... */
+
+/* Roles Grid */
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 32px;
+    margin-top: 12px;
+  }
+  
+  .role-card {
+    border: 1px solid #F3F4F6;
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .role-card:hover { border-color: #FED7AA; background-color: #FFF7ED; }
+  .role-card.active { border-color: #F97316; background-color: #FFF7ED; }
+  
+  /* 🔹 UPDATED ROLE ICON STYLING */
+  .role-icon {
+    width: 36px;
+    height: 36px;
+    background: #FFF7ED;
+    color: #EA580C; /* Stratos Orange */
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px auto;
+  }
+  
+  .role-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .role-card.active .role-icon { background: #FFEDD5; }
+  
+  .role-card h4 { font-size: 12px; font-weight: 700; color: #111827; margin-bottom: 4px; }
+  .role-card p { font-size: 9px; color: #9CA3AF; margin: 0; }
+  
+  /* 🔹 UPDATED NICHE PILLS */
+  .niche-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 12px;
+    margin-bottom: 32px;
+  }
+  
+  .niche-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #FFFFFF;
+    border: 1px solid #E5E7EB;
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 12px;
+    color: #4B5563;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .niche-pill:hover { border-color: #FED7AA; color: #EA580C; }
+  .niche-pill.active { background: #FFF7ED; border-color: #F97316; color: #EA580C; font-weight: 500; }
+  
+  .niche-pill-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #9CA3AF; /* Grey icon by default */
+    transition: color 0.2s;
+  }
+  
+  .niche-pill-icon svg {
+    width: 12px;
+    height: 12px;
+  }
+  
+  .niche-pill:hover .niche-pill-icon,
+  .niche-pill.active .niche-pill-icon {
+    color: #EA580C; /* Icon turns orange on hover/active */
+  }
+  
+  /* ... Keep bottom Continue Button and Preview Panel styling the same ... */
+  /* Continue Button */
+  .continue-btn {
+    width: 100%;
+    background-color: #F97316;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  .continue-btn:hover { background-color: #EA580C; }
+  .continue-btn:disabled { background: #fca5a5; cursor: not-allowed; }
+  
+  /* Live Preview Panel */
+  .live-preview-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .preview-header {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9CA3AF;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .dot {
+    width: 6px;
+    height: 6px;
+    background-color: #F97316;
+    border-radius: 50%;
+  }
+  
+  .preview-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+  }
+  
+  .preview-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #F3F4F6;
+  }
+  
+  .preview-avatar {
+    width: 48px;
+    height: 48px;
+    background-color: #FFF7ED;
+    color: #EA580C;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  
+  .preview-info h4 { font-size: 14px; font-weight: 700; color: #111827; margin: 0 0 4px 0; }
+  .preview-info p { font-size: 12px; color: #9CA3AF; margin: 0; background: #F3F4F6; padding: 2px 8px; border-radius: 100px; display: inline-block; }
+  
+  .preview-content-type p {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9CA3AF;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+  
+  .niche-tag {
+    background: #F9FAFB;
+    border: 1px dashed #D1D5DB;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 12px;
+    color: #6B7280;
+    text-align: center;
+  }
+
+  .niche-pill.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    position: relative;
+  }
+  
+  .niche-soon-tag {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: #6B7280;
+    margin-left: 4px;
+    text-transform: uppercase;
+  }
+
+  .niche-locked-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    margin-top: 12px;
+  }
+  
+  .niche-locked-badge {
+    background: #FFF7ED;
+    border: 1px solid #F97316;
+    color: #EA580C;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 100px;
+  }
+  
+  .niche-locked-notice p {
+    font-size: 13px;
+    color: #6B7280;
+    margin: 0;
+  }
+  
+  .niche-loading-text {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin: 12px 0 32px;
+  }
+
+  .niche-debug-error {
+    background: #FEF2F2;
+    border: 1px solid #FCA5A5;
+    color: #B91C1C;
+    font-size: 12px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin: 12px 0;
+  }
+  
+  .niche-locked-notice {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+    margin-top: 12px;
+  }
+  
+  .niche-locked-badge {
+    background: #FFF7ED;
+    border: 1px solid #F97316;
+    color: #EA580C;
+    font-weight: 600;
+    font-size: 13px;
+    padding: 8px 16px;
+    border-radius: 100px;
+  }
+  
+  .niche-locked-notice p {
+    font-size: 13px;
+    color: #6B7280;
+    margin: 0;
+  }
+  
+  .niche-loading-text {
+    font-size: 13px;
+    color: #9CA3AF;
+    margin: 12px 0 32px;
+  }

@@ -1,179 +1,174 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "./Signup.css";
-import signupImage from "../assets/signup-bg.png";
-import uploadIcon from "../assets/upload-icon.png"; // 👈 import the image
-import { FiEye, FiEyeOff } from "react-icons/fi";
+import React, { useState } from 'react';
+import { useNavigate, NavLink } from 'react-router-dom';
+import './Signup.css';
+import { supabase } from '../lib/supabaseClient';
+
+const EyeIcon = () => (
+  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+);
+const CameraIcon = () => (
+  <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#f7931a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+);
 
 const Signup = () => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    password: "",
-    industry: "",
-    agree: false,
-  });
-  const [profilePic, setProfilePic] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [industry, setIndustry] = useState('');
+  const [agreed, setAgreed] = useState(false);
+  const [avatarPreview, setAvatarPreview] = useState(null);
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({ ...formData, [name]: type === "checkbox" ? checked : value });
-  };
+  
 
-  const handleImageChange = (e) => {
+  const handleAvatarChange = (e) => {
     const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setProfilePic(reader.result);
-      reader.readAsDataURL(file);
-    }
+    if (file) setAvatarPreview(URL.createObjectURL(file));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMsg("");
-    setSuccessMsg("");
-    setLoading(true);
-
-    try {
-        await axios.post("http://localhost:5000/api/signup", {
-
-        ...formData,
-        profilePic,
-      });
-      setSuccessMsg("Account created successfully!");
-      setTimeout(() => navigate("/login"), 1500);
-    } catch (err) {
-      setErrorMsg(err.response?.data?.message || "Something went wrong. Try again.");
-    } finally {
-      setLoading(false);
+    setError('');
+    setSuccess('');
+  
+    if (!agreed) {
+      setError('Please agree to the terms to continue.');
+      return;
     }
+  
+    setLoading(true);
+  
+    const { data, error: signUpError } = await supabase.auth.signUp({
+      email,
+      password,
+    });
+  
+    if (signUpError) {
+      setError(signUpError.message);
+      setLoading(false);
+      return;
+    }
+  
+    // Row already exists from the trigger — just fill in the extra details
+    const { error: profileError } = await supabase
+      .from('users')
+      .update({
+        first_name: firstName,
+        last_name: lastName,
+        industry,
+      })
+      .eq('id', data.user.id);
+  
+    if (profileError) {
+      setError(profileError.message);
+      setLoading(false);
+      return;
+    }
+  
+    setSuccess('Account created! Redirecting...');
+    setTimeout(() => navigate('/onboarding'), 1000);
   };
 
   return (
     <div className="signup-page">
-      {/* LEFT SIDE */}
       <div className="signup-left">
         <form className="signup-form" onSubmit={handleSubmit}>
           <div className="title-section">
-            <h2>Create Your Account</h2>
-            <p className="subtitle">Please fill in your details below</p>
+            <h2>Create your account</h2>
+            <p className="subtitle">Let's get your Stratos toolkit set up.</p>
           </div>
 
-          {/* Upload Icon / Preview */}
-          <label htmlFor="profileUpload" className="upload-icon" aria-label="Upload profile">
-            {profilePic ? (
-              <img src={profilePic} alt="Profile" />
-            ) : (
-              <img src={uploadIcon} alt="Upload Icon" className="upload-image" />
-            )}
+          <label className="upload-icon" htmlFor="avatar-upload" style={{ display: 'flex' }}>
+            {avatarPreview ? <img src={avatarPreview} alt="Avatar preview" /> : <CameraIcon />}
           </label>
-
           <input
+            id="avatar-upload"
             type="file"
-            id="profileUpload"
             accept="image/*"
             className="upload-input"
-            onChange={handleImageChange}
+            onChange={handleAvatarChange}
           />
 
-          {/* Rest of your form... */}
-          <label>Full Name</label>
+          {error && <p className="error-msg">{error}</p>}
+          {success && <p className="success-msg">{success}</p>}
+
+          <label>First Name</label>
           <input
             type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            placeholder="Enter your full name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+          />
+
+          <label>Last Name</label>
+          <input
+            type="text"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             required
           />
 
           <label>Email</label>
           <input
             type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email address"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
 
-          {/* Password */}
           <label>Password</label>
           <div className="password-wrapper">
             <input
-              type={showPassword ? "text" : "password"}
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="Enter a password"
+              type={showPassword ? 'text' : 'password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               required
+              minLength={6}
             />
-            <span
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <FiEyeOff className="password-icon" />
-              ) : (
-                <FiEye className="password-icon" />
-              )}
+            <span className="toggle-password" onClick={() => setShowPassword(!showPassword)}>
+              <span className="password-icon"><EyeIcon /></span>
             </span>
           </div>
 
-          {/* Industry */}
           <label>Industry</label>
           <div className="select-wrapper">
-            <select
-              name="industry"
-              value={formData.industry}
-              onChange={handleChange}
-              required
-            >
-              <option value="">What industry are you in?</option>
-              <option value="Tech">Tech</option>
-              <option value="Design">Design</option>
-              <option value="Marketing">Marketing</option>
+            <select value={industry} onChange={(e) => setIndustry(e.target.value)} required>
+              <option value="">Select your industry</option>
+              <option value="Fashion">Fashion</option>
+              <option value="Fitness">Fitness</option>
+              <option value="Beauty">Beauty</option>
               <option value="Other">Other</option>
             </select>
           </div>
 
-          {/* Checkbox */}
           <div className="checkbox-row">
             <input
               type="checkbox"
-              name="agree"
-              checked={formData.agree}
-              onChange={handleChange}
-              required
+              checked={agreed}
+              onChange={(e) => setAgreed(e.target.checked)}
             />
-            <label className="terms-label">
-              I agree to the <span>Terms and Conditions</span>
-            </label>
+            <p className="terms-label">
+              I agree to the <span>Terms of Service</span> and <span>Privacy Policy</span>
+            </p>
           </div>
 
-          {errorMsg && <p className="error-msg">{errorMsg}</p>}
-          {successMsg && <p className="success-msg">{successMsg}</p>}
-
           <button type="submit" className="signup-btn" disabled={loading}>
-            {loading ? "Creating Account..." : "Sign Up"}
+            {loading ? 'Creating account...' : 'Create Account'}
           </button>
 
           <p className="login-text">
-            Already have an account? <NavLink to="/login">Log In</NavLink>
+            Already have an account? <NavLink to="/login">Log in</NavLink>
           </p>
         </form>
       </div>
 
-      {/* RIGHT SIDE */}
       <div className="signup-right">
-        <img src={signupImage} alt="Signup" />
+        <img src="/signup-visual.jpg" alt="Stratos HQ" />
       </div>
     </div>
   );

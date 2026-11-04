@@ -1,0 +1,161 @@
+.onboarding-ready-layout {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: linear-gradient(180deg, #FFF5EB 0%, #FEE8CE 100%);
+    position: relative;
+    padding: 40px 24px;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+  }
+  
+  .bg-clouds {
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 400px;
+    height: 250px;
+    background: radial-gradient(circle, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0) 70%);
+    border-top-left-radius: 200px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  /* Stepper */
+  .progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 580px;
+    margin-bottom: 32px;
+    z-index: 1;
+  }
+  .step { display: flex; flex-direction: column; align-items: center; color: #9CA3AF; }
+  .step-circle { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #D1D5DB; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 600; margin-bottom: 8px; background: #FFFFFF; }
+  .step-label { font-size: 11px; font-weight: 500; }
+  .step.completed { color: #9CA3AF; }
+  .step.completed .step-circle { background-color: #FFEDD5; color: #F97316; border-color: #FFEDD5; }
+  .step.active { color: #F97316; }
+  .step.active .step-circle { background-color: #F97316; color: white; border-color: #F97316; }
+  .step-divider { flex: 1; height: 2px; background-color: #E5E7EB; margin: 0 12px; margin-top: -20px; }
+  .step-divider.completed-divider { background-color: #FFEDD5; }
+  
+  /* Main Card */
+  .ready-card {
+    background: #FFFFFF;
+    border-radius: 24px;
+    padding: 48px;
+    width: 100%;
+    max-width: 480px;
+    text-align: center;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.05);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .ready-icon-wrapper {
+    width: 64px;
+    height: 64px;
+    background: #FFF7ED;
+    color: #EA580C;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  
+  .ready-icon-wrapper svg {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .ready-title {
+    font-size: 28px;
+    font-weight: 800;
+    color: #111827;
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+  }
+  
+  .text-orange { 
+    color: #EA580C; 
+  }
+  
+  .ready-subtitle {
+    font-size: 14px;
+    color: #6B7280;
+    margin-bottom: 32px;
+  }
+  
+  /* Starter Kit Box */
+  .starter-kit-box {
+    width: 100%;
+    border: 1px solid #F3F4F6;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: left;
+    margin-bottom: 32px;
+  }
+  
+  .kit-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #9CA3AF;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  
+  .kit-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .kit-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: #374151;
+    font-weight: 500;
+  }
+  
+  .check-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background: #FFF7ED;
+    color: #EA580C;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: bold;
+  }
+  
+  /* Enter Dashboard Button */
+  .enter-dashboard-btn {
+    width: 100%;
+    background-color: #F97316;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .enter-dashboard-btn:hover { 
+    background-color: #EA580C; 
+  }

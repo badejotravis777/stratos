@@ -2,6 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../models/User.js";
+import UserProfile from "../models/UserProfile.js"; // 👉 Added this import
 
 const router = express.Router();
 
@@ -60,6 +61,24 @@ router.post("/login", async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error });
+  }
+});
+
+// 👉 Save Profile Details (Added here)
+router.post("/profile/details", async (req, res) => {
+  try {
+    const { email, fullName, role, niche } = req.body;
+    
+    const profile = await UserProfile.findOneAndUpdate(
+      { email },
+      { fullName, role, niche },
+      { new: true, upsert: true }
+    );
+    
+    res.status(200).json({ message: "Profile saved successfully", profile });
+  } catch (error) {
+    console.error("Profile save error:", error);
+    res.status(500).json({ message: "Failed to save profile details." });
   }
 });
 
