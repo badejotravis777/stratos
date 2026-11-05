@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Resources.css';
 import Sidebar from '../components/Sidebar';
 import TopBar from '../components/TopBar';
@@ -6,6 +6,10 @@ import ChatSidebar from '../components/ChatSidebar';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import { useNavigate } from 'react-router-dom';
+import { fetchStarterKit } from '../lib/starterKit';
+import { COMMUNITY_LINK } from '../lib/contact';
+
+const KIT_TAB = 'Starter Kit';
 
 const TemplateIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -65,7 +69,9 @@ const Resources = () => {
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [allTools, setAllTools] = useState([]);
   const [activeTab, setActiveTab] = useState('All');
+  const [starterKit, setStarterKit] = useState([]);
   const [loading, setLoading] = useState(true);
+  const listRef = useRef(null);
 
   const nicheId = profile?.niche_id;
   const nicheName = profile?.niches?.name || 'Fashion';
@@ -81,17 +87,29 @@ const Resources = () => {
         .eq('niche_id', nicheId)
         .order('title', { ascending: true });
       setAllTools(data || []);
+      setStarterKit(await fetchStarterKit(nicheId));
       setLoading(false);
     };
 
     loadResources();
   }, [nicheId]);
 
-  const categories = ['All', ...Array.from(new Set(allTools.map((t) => t.category).filter(Boolean)))];
+  const categories = [
+    'All',
+    ...(starterKit.length ? [KIT_TAB] : []),
+    ...Array.from(new Set(allTools.map((t) => t.category).filter(Boolean))),
+  ];
 
   const filteredTools = activeTab === 'All'
     ? allTools
+    : activeTab === KIT_TAB
+    ? starterKit
     : allTools.filter((t) => t.category === activeTab);
+
+  const openStarterKit = () => {
+    setActiveTab(KIT_TAB);
+    requestAnimationFrame(() => listRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
 
   if (loading) {
     return (
@@ -134,11 +152,17 @@ const Resources = () => {
             <div className="pinned-kit-banner">
               <span className="pinned-label">PINNED · START HERE</span>
               <h3>{nicheName} Creator Starter Kit</h3>
-              <p>The tools that set up your first 7 days — templates, captions, and a posting guide.</p>
-              <button className="get-kit-btn">Get the Kit</button>
+              <p>
+                {starterKit.length
+                  ? `The ${starterKit.length} tools that set up your first 7 days: templates, captions and a posting guide.`
+                  : 'The tools that set up your first 7 days: templates, captions and a posting guide.'}
+              </p>
+              <button className="get-kit-btn" onClick={openStarterKit} disabled={!starterKit.length}>
+                Get the Kit
+              </button>
             </div>
 
-            <div className="resource-tabs">
+            <div className="resource-tabs" ref={listRef}>
               {categories.map((cat) => (
                 <button
                   key={cat}
@@ -182,7 +206,7 @@ const Resources = () => {
                   <p>Live tips, early access, and wins — on WhatsApp.</p>
                 </div>
               </div>
-              <button className="join-now-btn">Join Now</button>
+              <a className="join-now-btn" href={COMMUNITY_LINK} target="_blank" rel="noopener noreferrer">Join Now</a>
             </div>
           </section>
         </div>

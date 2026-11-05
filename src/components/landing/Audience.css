@@ -1,0 +1,133 @@
+.lp-audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.lp-audience-card {
+  padding: 28px;
+  border-radius: var(--lp-radius);
+  border: 1px solid var(--lp-line-d);
+  background: var(--lp-ink-2);
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.lp-audience-card:hover {
+  border-color: rgba(249, 115, 22, 0.35);
+}
+
+.lp-audience-card h3 {
+  margin-top: 24px;
+  font-size: 1.125rem;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  color: #fff;
+}
+
+.lp-audience-card p {
+  margin-top: 8px;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--lp-muted-d);
+}
+
+/* Niches */
+.lp-niches {
+  margin-top: 72px;
+  padding: 40px;
+  border-radius: var(--lp-radius-lg);
+  border: 1px solid var(--lp-line-d);
+  background: rgba(255, 255, 255, 0.02);
+  text-align: center;
+}
+
+.lp-niches-title {
+  font-size: clamp(1.25rem, 1rem + 0.8vw, 1.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.lp-niches-title span {
+  color: var(--lp-orange);
+}
+
+.lp-niches-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 920px;
+  margin: 28px auto 0;
+}
+
+.lp-niches-list li {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--lp-line-d);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #D4D4D8;
+  transition: border-color 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+}
+
+.lp-niches-list li:hover {
+  border-color: rgba(249, 115, 22, 0.45);
+  background: rgba(249, 115, 22, 0.08);
+  color: #fff;
+}
+
+.lp-niches-list .lp-niches-more {
+  border-color: rgba(249, 115, 22, 0.4);
+  background: rgba(249, 115, 22, 0.1);
+  color: var(--lp-orange);
+}
+
+@media (max-width: 1080px) {
+  .lp-audience-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .lp-audience-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .lp-audience-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 16px;
+    padding: 20px;
+  }
+
+  .lp-audience-card .lp-icon-tile {
+    grid-row: span 2;
+  }
+
+  .lp-audience-card h3 {
+    margin-top: 0;
+    font-size: 1rem;
+  }
+
+  .lp-audience-card p {
+    margin-top: 4px;
+    font-size: 0.875rem;
+  }
+
+  .lp-niches {
+    margin-top: 48px;
+    padding: 28px 16px;
+  }
+
+  .lp-niches-list {
+    gap: 8px;
+  }
+
+  .lp-niches-list li {
+    padding: 7px 13px;
+    font-size: 0.8125rem;
+  }
+}

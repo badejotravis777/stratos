@@ -5,7 +5,9 @@ import TopBar from '../components/TopBar';
 import ChatSidebar from '../components/ChatSidebar';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { LuX } from 'react-icons/lu';
+import { getGoal, toolMatchesGoal } from '../lib/goals';
 
 const TemplateIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -57,6 +59,8 @@ const ICONS_BY_TYPE = {
 const NicheToolkit = () => {
   const { profile } = useAuth();
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeGoal = getGoal(searchParams.get('goal'));
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [allTools, setAllTools] = useState([]);
   const [recentTools, setRecentTools] = useState([]);
@@ -98,9 +102,19 @@ const NicheToolkit = () => {
 
   const filteredTools = allTools.filter(
     (t) =>
-      t.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (t.description || '').toLowerCase().includes(searchTerm.toLowerCase())
+      (!activeGoal || toolMatchesGoal(t, activeGoal)) &&
+      (t.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (t.description || '').toLowerCase().includes(searchTerm.toLowerCase()))
   );
+
+  // Opens from a goal view are logged as Categories browsing signal.
+  const openTool = (toolId) =>
+    navigate(`/tool/${toolId}`, activeGoal ? { state: { source: 'categories_browse', goal: activeGoal.id } } : undefined);
+
+  const clearGoal = () => {
+    searchParams.delete('goal');
+    setSearchParams(searchParams, { replace: true });
+  };
 
   if (loading) {
     return (
@@ -154,19 +168,32 @@ const NicheToolkit = () => {
               />
             </div>
 
-            {featuredTool && (
+            {activeGoal && (
+              <div className="toolkit-goal-filter">
+                <div>
+                  <span className="toolkit-goal-label">Showing tools for</span>
+                  <strong>{activeGoal.title}</strong>
+                </div>
+                <button type="button" onClick={clearGoal} aria-label="Clear goal filter">
+                  <LuX aria-hidden="true" /> Show all tools
+                </button>
+              </div>
+            )}
+
+            {!activeGoal && featuredTool && (
               <div className="featured-banner">
                 <div className="featured-content">
                   <span className="featured-tag">FEATURED TOOL</span>
                   <h3>{featuredTool.title}</h3>
                   <p>{featuredTool.description}</p>
-                  <button className="primary-btn" onClick={() => navigate(`/tool/${featuredTool.id}`)}>
+                  <button className="primary-btn" onClick={() => openTool(featuredTool.id)}>
                     Launch
                   </button>
                 </div>
               </div>
             )}
 
+            {!activeGoal && (
             <div className="recently-used-section">
               <h4>Recently Used</h4>
               {recentTools.length === 0 ? (
@@ -194,11 +221,16 @@ const NicheToolkit = () => {
                 </div>
               )}
             </div>
+            )}
 
             <div className="all-tools-section">
-              <h4>All Tools</h4>
+              <h4>{activeGoal ? `${filteredTools.length} matching tool${filteredTools.length === 1 ? '' : 's'}` : 'All Tools'}</h4>
               {filteredTools.length === 0 ? (
-                <p style={{ color: '#6B7280', fontSize: '13px' }}>No tools match your search.</p>
+                <p style={{ color: '#6B7280', fontSize: '13px' }}>
+                  {activeGoal
+                    ? `No ${nicheName} tools for this goal yet. We're adding more every week.`
+                    : 'No tools match your search.'}
+                </p>
               ) : (
                 <div className="toolkit-tools-grid">
                   {filteredTools.map((tool) => (
@@ -217,7 +249,7 @@ const NicheToolkit = () => {
                           className="toolkit-tool-link"
                           onClick={(e) => {
                             e.preventDefault();
-                            navigate(`/tool/${tool.id}`);
+                            openTool(tool.id);
                           }}
                         >
                           Get Templates &gt;

@@ -1,9 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./OnboardingReady.css";
+import { useAuth } from "../context/AuthContext";
+import { fetchStarterKit } from "../lib/starterKit";
 
 const OnboardingReady = () => {
   const navigate = useNavigate();
+  const { profile } = useAuth();
+  const [kit, setKit] = useState(null); // null while loading
+
+  const firstName = profile?.first_name || "there";
+  const nicheName = profile?.niches?.name;
+
+  useEffect(() => {
+    let cancelled = false;
+    fetchStarterKit(profile?.niche_id).then((tools) => {
+      if (!cancelled) setKit(tools);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [profile?.niche_id]);
 
   return (
     <div className="onboarding-ready-layout">
@@ -32,28 +49,32 @@ const OnboardingReady = () => {
         </div>
 
         <h1 className="ready-title">
-          You're all set, <span className="text-orange">there</span>
+          You're all set, <span className="text-orange">{firstName}</span>
         </h1>
-        <p className="ready-subtitle">Your Starter Kit is unlocked — 5 tools ready to use.</p>
+        <p className="ready-subtitle">
+          {kit && kit.length > 0
+            ? `Your ${nicheName ? `${nicheName} ` : ""}Starter Kit is unlocked. ${kit.length} tool${kit.length === 1 ? "" : "s"} ready to use.`
+            : "Your 30-day plan is ready. Day 1 starts today."}
+        </p>
 
         <div className="starter-kit-box">
           <p className="kit-label">YOUR STARTER KIT INCLUDES</p>
           <ul className="kit-list">
-            <li>
-              <span className="check-icon">✓</span> 5 Carousel Scripts
-            </li>
-            <li>
-              <span className="check-icon">✓</span> 10 Instagram Captions
-            </li>
-            <li>
-              <span className="check-icon">✓</span> 1 CapCut Video Template
-            </li>
-            <li>
-              <span className="check-icon">✓</span> 1-Month Notion Content Calendar
-            </li>
-            <li>
-              <span className="check-icon">✓</span> 3 DM Conversion Scripts
-            </li>
+            {kit === null ? (
+              <li className="kit-loading">Loading your kit…</li>
+            ) : kit.length > 0 ? (
+              kit.map((tool) => (
+                <li key={tool.id}>
+                  <span className="check-icon">✓</span> {tool.title}
+                </li>
+              ))
+            ) : (
+              <>
+                <li><span className="check-icon">✓</span> A 30-day growth plan for your niche</li>
+                <li><span className="check-icon">✓</span> Daily tasks with step-by-step checklists</li>
+                <li><span className="check-icon">✓</span> Templates, captions and scripts as they launch</li>
+              </>
+            )}
           </ul>
         </div>
 

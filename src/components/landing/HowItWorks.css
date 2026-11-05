@@ -1,0 +1,206 @@
+.lp-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  counter-reset: step;
+}
+
+.lp-step {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--lp-radius-lg);
+  border: 1px solid var(--lp-line);
+  background: var(--lp-paper-2);
+  overflow: hidden;
+}
+
+.lp-step-copy {
+  flex: 1;
+  padding: 32px 28px 24px;
+}
+
+.lp-step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background: var(--lp-ink);
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.lp-step:first-child .lp-step-num {
+  background: var(--lp-orange);
+  color: #140A02;
+}
+
+.lp-step-copy p {
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--lp-muted);
+}
+
+.lp-step-ui {
+  height: 228px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  margin: 0 12px 12px;
+  border-radius: 16px;
+  border: 1px solid var(--lp-line);
+  background: var(--lp-paper);
+}
+
+/* Step 1: categories */
+.lp-step-cats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.lp-step-cats li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.875rem;
+}
+
+.lp-step-cats li.is-active {
+  background: rgba(249, 115, 22, 0.08);
+}
+
+.lp-step-cat-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  color: var(--lp-text);
+}
+
+.lp-step-cat-name i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #D4D4D8;
+}
+
+.lp-step-cats .is-active .lp-step-cat-name {
+  color: var(--lp-orange-text);
+}
+
+.lp-step-cats .is-active .lp-step-cat-name i {
+  background: var(--lp-orange);
+}
+
+.lp-step-cat-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8125rem;
+  color: var(--lp-faint);
+}
+
+.lp-step-cat-count svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Step 2: tool card */
+.lp-step-tool-path {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--lp-faint);
+}
+
+.lp-step-tool h4 {
+  margin-top: 8px;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+
+.lp-step-tool p {
+  margin-top: 6px;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--lp-muted);
+}
+
+.lp-step-tool-tags {
+  display: flex;
+  gap: 6px;
+  margin-top: 14px;
+}
+
+.lp-step-tool-tags .lp-platform {
+  color: var(--lp-orange-text);
+}
+
+/* Step 3: actions */
+.lp-step-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.lp-step-actions li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--lp-line);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--lp-text);
+}
+
+.lp-step-action-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: var(--lp-orange-soft);
+  color: var(--lp-orange-strong);
+}
+
+.lp-step-action-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 1080px) {
+  .lp-steps {
+    grid-template-columns: 1fr;
+    max-width: 560px;
+    margin: 0 auto;
+  }
+
+  .lp-step-ui {
+    height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .lp-step-copy {
+    padding: 24px 22px 20px;
+  }
+
+  .lp-step-num {
+    margin-bottom: 18px;
+  }
+}

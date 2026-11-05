@@ -1,0 +1,187 @@
+/* Re-uses the hero's custom background artwork so the page opens and
+   closes on the same visual. */
+.lp-cta {
+  background: var(--lp-ink) url('../../assets/hero-bg-dark.png') center / cover no-repeat;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+
+.lp-cta-inner {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.lp-cta-title {
+  font-size: clamp(2.4rem, 1.2rem + 4.4vw, 4.25rem);
+  font-weight: 750;
+  line-height: 1.02;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.lp-cta-title > span {
+  display: block;
+}
+
+.lp-cta .lp-lead {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.lp-cta-form {
+  display: flex;
+  gap: 10px;
+  max-width: 520px;
+  margin: 40px auto 0;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--lp-line-d2);
+  background: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.lp-cta-field {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding-left: 18px;
+  border-radius: 999px;
+  color: #71717A;
+}
+
+.lp-cta-field svg {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.lp-cta-field input {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+}
+
+.lp-cta-field input::placeholder {
+  color: #71717A;
+}
+
+.lp-cta-form:focus-within {
+  border-color: rgba(249, 115, 22, 0.6);
+  box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
+}
+
+.lp-cta-field.has-error {
+  color: #F87171;
+}
+
+.lp-cta-form .lp-btn {
+  flex-shrink: 0;
+}
+
+.lp-cta-msg {
+  min-height: 1.5em;
+  margin-top: 14px;
+  font-size: 0.875rem;
+  color: #8B8B94;
+}
+
+.lp-cta-msg.is-error {
+  color: #F87171;
+}
+
+.lp-cta-success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  max-width: 520px;
+  margin: 40px auto 0;
+  padding: 16px 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  background: rgba(34, 197, 94, 0.08);
+  color: #DCFCE7;
+  font-size: 0.9375rem;
+  text-align: left;
+}
+
+.lp-cta-success svg {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  color: #4ADE80;
+}
+
+.lp-cta-whatsapp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #D4D4D8;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.lp-cta-whatsapp:hover {
+  color: #fff;
+}
+
+.lp-cta-whatsapp svg {
+  width: 18px;
+  height: 18px;
+  color: #25D366;
+}
+
+@keyframes lp-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.lp-spin {
+  animation: lp-spin 0.9s linear infinite;
+}
+
+@media (max-width: 560px) {
+  .lp-cta-form {
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .lp-cta-form:focus-within {
+    box-shadow: none;
+  }
+
+  .lp-cta-field {
+    border: 1px solid var(--lp-line-d2);
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .lp-cta-field:focus-within {
+    border-color: rgba(249, 115, 22, 0.6);
+    box-shadow: 0 0 0 4px rgba(249, 115, 22, 0.15);
+  }
+
+  .lp-cta-form .lp-btn {
+    height: 52px;
+    width: 100%;
+  }
+}
