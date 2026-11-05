@@ -213,3 +213,18 @@
   .join-now-btn:hover {
     opacity: 0.9;
   }
+  .join-now-btn {
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .get-kit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .resource-tabs {
+    flex-wrap: wrap;
+    scroll-margin-top: 24px;
+  }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom';
 import './ToolDetail.css';
 import Sidebar from '../components/Sidebar';
 import TopBar from '../components/TopBar';
@@ -75,6 +75,8 @@ const useCountUp = (target) => {
 const ToolDetail = () => {
   const { toolId } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const usageSource = location.state?.source || 'tool_detail';
   const { profile } = useAuth();
   const [isChatOpen, setIsChatOpen] = useState(true);
   const [tool, setTool] = useState(null);
@@ -117,7 +119,12 @@ const ToolDetail = () => {
         setPlanDay(taskRow || null);
 
         if (userId) {
-          await supabase.from('user_tool_usage').insert({ user_id: userId, tool_id: toolId, source: 'tool_detail' });
+          const usage = { user_id: userId, tool_id: toolId, source: usageSource };
+          const { error: usageError } = await supabase.from('user_tool_usage').insert(usage);
+          // If the database doesn't accept this source value, still count the open.
+          if (usageError && usageSource !== 'tool_detail') {
+            await supabase.from('user_tool_usage').insert({ ...usage, source: 'tool_detail' });
+          }
         }
       }
 
@@ -125,7 +132,7 @@ const ToolDetail = () => {
     };
 
     load();
-  }, [toolId, userId]);
+  }, [toolId, userId, usageSource]);
 
   const blocks = parseBlocks(tool?.content_text);
   const fileKind = tool?.asset_url ? getFileKind(tool.asset_url) : null;

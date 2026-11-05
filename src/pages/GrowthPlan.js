@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./GrowthPlan.css";
 import Sidebar from '../components/Sidebar';
 import TopBar from '../components/TopBar';
@@ -35,7 +36,7 @@ const GrowthPlan = () => {
 
       const { data: taskRows } = await supabase
         .from("daily_tasks")
-        .select("day_number, title, description")
+        .select("day_number, title, description, tool_id, tools(title)")
         .eq("niche_id", nicheId)
         .order("day_number", { ascending: true });
       setTasks(taskRows || []);
@@ -125,8 +126,16 @@ const GrowthPlan = () => {
                           )}
                         </div>
                         <div className="task-details">
-                          <h4>{task.title}</h4>
+                          <h4>
+                            {task.title}
+                            {status === "active" && <span className="today-pill">Today</span>}
+                          </h4>
                           <p>{task.description}</p>
+                          {task.tool_id && (
+                            <Link to={`/tool/${task.tool_id}`} className="task-tool-link">
+                              Open {task.tools?.title || "the tool"} &rarr;
+                            </Link>
+                          )}
                         </div>
                       </div>
                     );

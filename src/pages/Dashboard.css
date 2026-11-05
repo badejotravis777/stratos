@@ -279,3 +279,48 @@
 
 .qa-arrow { color: #4B5563; display: flex; align-items: center; }
 .qa-arrow svg { width: 16px; height: 16px; }
+/* --- Live resources, quick access & guide card --- */
+.stratos-guide {
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+.resource-card,
+.qa-card {
+  text-decoration: none;
+  color: inherit;
+}
+
+.resource-card:focus-visible,
+.qa-card:focus-visible,
+.stratos-guide:focus-visible {
+  outline: 2px solid #EA580C;
+  outline-offset: 2px;
+}
+
+.resource-icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #EA580C;
+}
+
+.resource-icon-box svg { width: 22px; height: 22px; }
+
+.resource-tags { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+
+.tag.today { background-color: #EA580C; color: #FFFFFF; }
+
+.resources-empty { font-size: 13px; color: #6B7280; margin: 0; }
+
+.qa-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #EA580C;
+  flex-shrink: 0;
+}
+
+.qa-icon svg { width: 18px; height: 18px; }

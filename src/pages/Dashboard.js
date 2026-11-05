@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { LuUsers, LuCirclePlay, LuPhoneCall } from "react-icons/lu";
 import "./Dashboard.css";
 import Sidebar from '../components/Sidebar';
 import TopBar from '../components/TopBar';
@@ -6,6 +8,27 @@ import ChatSidebar from '../components/ChatSidebar';
 import { useAuth } from '../context/AuthContext';
 import { supabase } from '../lib/supabaseClient';
 import { getCurrentDay } from '../utils/planDay';
+import { ToolTypeIcon, toolTag } from '../components/ToolTypeIcon';
+import { COMMUNITY_LINK, STRATEGY_CALL_LINK } from '../lib/contact';
+
+const QUICK_ACCESS = [
+  { title: "Join the community", desc: "Live tips and wins, on WhatsApp", href: COMMUNITY_LINK, icon: LuUsers, external: true },
+  { title: "How Stratos works", desc: "A quick walkthrough of the toolkit", to: "/#how-it-works", icon: LuCirclePlay },
+  { title: "Book a strategy call", desc: "Free while you're in early access", href: STRATEGY_CALL_LINK, icon: LuPhoneCall, external: true },
+];
+
+const ArrowIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+);
+
+// Today's linked tool first, then tools from the same category, then the rest.
+const pickResources = (tools, linkedTool) => {
+  const picked = linkedTool ? [linkedTool] : [];
+  const rest = tools.filter((t) => t.id !== linkedTool?.id);
+  const sameCategory = linkedTool ? rest.filter((t) => t.category === linkedTool.category) : [];
+  const others = rest.filter((t) => !sameCategory.includes(t));
+  return [...picked, ...sameCategory, ...others].slice(0, 3);
+};
 
 const CHECKLIST_STEPS = [
   "Pick a Canva template",
@@ -16,7 +39,9 @@ const CHECKLIST_STEPS = [
 
 const Dashboard = () => {
   const { profile } = useAuth();
+  const navigate = useNavigate();
   const [isChatOpen, setIsChatOpen] = useState(true);
+  const [resources, setResources] = useState([]);
   const [todayTask, setTodayTask] = useState(null);
   const [nextTask, setNextTask] = useState(null);
   const [checklist, setChecklist] = useState(CHECKLIST_STEPS.map(() => false));
@@ -28,18 +53,29 @@ const Dashboard = () => {
   const userId = profile?.id;
 
   useEffect(() => {
-    if (!nicheId || !userId) return;
+    if (!userId) return;
+    if (!nicheId) {
+      setLoading(false);
+      return;
+    }
 
     const loadDashboard = async () => {
       setLoading(true);
 
       const { data: taskRow } = await supabase
         .from("daily_tasks")
-        .select("*, tools(title, description)")
+        .select("*, tools(id, title, description, type, category)")
         .eq("niche_id", nicheId)
         .eq("day_number", currentDay)
         .maybeSingle();
       setTodayTask(taskRow);
+
+      const { data: nicheTools } = await supabase
+        .from("tools")
+        .select("id, title, description, type, category")
+        .eq("niche_id", nicheId)
+        .order("title", { ascending: true });
+      setResources(pickResources(nicheTools || [], taskRow?.tools || null));
 
       const { data: upNextRow } = await supabase
         .from("daily_tasks")
@@ -99,6 +135,9 @@ const Dashboard = () => {
 
   const firstName = profile?.first_name || "there";
   const streak = completedDays.length;
+  const todayToolId = todayTask?.tools?.id || todayTask?.tool_id;
+
+  const startTask = () => navigate(todayToolId ? `/tool/${todayToolId}` : "/growth-plan");
 
   if (loading) {
     return (
@@ -174,8 +213,10 @@ const Dashboard = () => {
                     <div className="progress-bar-fill" style={{ width: `${(completedCount / CHECKLIST_STEPS.length) * 100}%` }}></div>
                   </div>
                   <div className="task-actions">
-                    <button className="start-task-btn">Start task</button>
-                    <button className="view-plan-btn">View plan</button>
+                    <button className="start-task-btn" onClick={startTask}>
+                      {todayToolId ? "Start task" : "Open plan"}
+                    </button>
+                    <button className="view-plan-btn" onClick={() => navigate("/growth-plan")}>View plan</button>
                   </div>
                 </div>
               </div>
@@ -198,11 +239,11 @@ const Dashboard = () => {
                 </div>
                 <div className="week-footer">
                   <p>{daysDoneThisWeek} of {weekDays.length} days done</p>
-                  <a href="/growth-plan" className="text-orange">View plan</a>
+                  <Link to="/growth-plan" className="text-orange">View plan</Link>
                 </div>
               </div>
 
-              <div className="status-card stratos-guide">
+              <button type="button" className="status-card stratos-guide" onClick={() => setIsChatOpen(true)}>
                 <div className="guide-icon">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                 </div>
@@ -213,7 +254,7 @@ const Dashboard = () => {
                 <div className="arrow">
                   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                 </div>
-              </div>
+              </button>
 
               {nextTask && (
                 <div className="status-card up-next">
@@ -228,30 +269,49 @@ const Dashboard = () => {
           <section className="section-block">
             <div className="section-header">
               <h3>Today's Resources</h3>
-              <a href="/niche-toolkit" className="text-orange">See full toolkit &rarr;</a>
+              <Link to="/niche-toolkit" className="text-orange">See full toolkit &rarr;</Link>
             </div>
-            <div className="resources-grid">
-              <div className="resource-card">
-                <div className="card-top"><div className="resource-icon-box"></div><span className="tag template">TEMPLATE</span></div>
-                <div className="card-bottom"><h4>GRWM Carousel Template</h4><p>9-slide Canva template built for fashion carousels. Just add your photos.</p></div>
+            {resources.length === 0 ? (
+              <p className="resources-empty">Tools for your niche are on the way. Check the toolkit soon.</p>
+            ) : (
+              <div className="resources-grid">
+                {resources.map((tool, i) => {
+                  const tag = toolTag(tool.type);
+                  const isToday = i === 0 && tool.id === todayToolId;
+                  return (
+                    <Link to={`/tool/${tool.id}`} className="resource-card" key={tool.id}>
+                      <div className="card-top">
+                        <div className="resource-icon-box"><ToolTypeIcon type={tool.type} /></div>
+                        <div className="resource-tags">
+                          {isToday && <span className="tag today">FOR TODAY</span>}
+                          <span className={`tag ${tag.variant}`}>{tag.label}</span>
+                        </div>
+                      </div>
+                      <div className="card-bottom"><h4>{tool.title}</h4><p>{tool.description}</p></div>
+                    </Link>
+                  );
+                })}
               </div>
-              <div className="resource-card">
-                <div className="card-top"><div className="resource-icon-box"></div><span className="tag copy">COPY</span></div>
-                <div className="card-bottom"><h4>Caption Starter Pack</h4><p>3 ready-to-use captions for GRWM posts. Pick one, make it yours.</p></div>
-              </div>
-              <div className="resource-card">
-                <div className="card-top"><div className="resource-icon-box"></div><span className="tag guide">GUIDE</span></div>
-                <div className="card-bottom"><h4>Posting CTA Guide</h4><p>What to say at the end of your post to drive saves, follows, and DMs.</p></div>
-              </div>
-            </div>
+            )}
           </section>
 
           <section className="section-block">
             <h3 className="section-title">QUICK ACCESS</h3>
             <div className="quick-access-grid">
-              <div className="qa-card"><div className="qa-icon"></div><div className="qa-text"><h4>Join the community</h4><p>Live tips and wins, on WhatsApp</p></div><div className="qa-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div></div>
-              <div className="qa-card"><div className="qa-icon"></div><div className="qa-text"><h4>How Stratos works</h4><p>A 2-minute walkthrough</p></div><div className="qa-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div></div>
-              <div className="qa-card"><div className="qa-icon"></div><div className="qa-text"><h4>Book a strategy call</h4><p>Free while you're in early access</p></div><div className="qa-arrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></div></div>
+              {QUICK_ACCESS.map(({ title, desc, href, to, icon: Icon, external }) => {
+                const inner = (
+                  <>
+                    <div className="qa-icon"><Icon aria-hidden="true" /></div>
+                    <div className="qa-text"><h4>{title}</h4><p>{desc}</p></div>
+                    <div className="qa-arrow"><ArrowIcon /></div>
+                  </>
+                );
+                return external ? (
+                  <a key={title} className="qa-card" href={href} target="_blank" rel="noopener noreferrer">{inner}</a>
+                ) : (
+                  <Link key={title} className="qa-card" to={to}>{inner}</Link>
+                );
+              })}
             </div>
           </section>
         </div>

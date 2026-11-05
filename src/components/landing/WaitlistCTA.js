@@ -23,9 +23,13 @@ const WaitlistCTA = () => {
     setMessage('');
 
     try {
-      await joinWaitlist(value);
+      const { alreadyJoined } = await joinWaitlist(value, 'Landing page');
       setStatus('success');
-      setMessage("You're on the list. We'll email you as soon as your spot opens.");
+      setMessage(
+        alreadyJoined
+          ? "You're already on the list. We'll email you as soon as your spot opens."
+          : "You're on the list. We'll email you as soon as your spot opens."
+      );
       setEmail('');
     } catch (err) {
       console.error('Waitlist signup failed', err);

@@ -159,3 +159,6 @@
   .enter-dashboard-btn:hover { 
     background-color: #EA580C; 
   }
+.kit-list .kit-loading {
+  color: #9CA3AF;
+}
