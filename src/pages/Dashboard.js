@@ -175,15 +175,6 @@ const Dashboard = () => {
             </div>
           </div>
 
-          <button type="button" className="deal-check-promo" onClick={() => navigate("/deal-check")}>
-            <span className="deal-check-promo-tag">New</span>
-            <span className="deal-check-promo-text">
-              <strong>Got a brand deal? Check it before you sign.</strong>
-              <span>Deal Check spots red flags and scams, tells you what to charge, and writes your reply.</span>
-            </span>
-            <span className="deal-check-promo-cta">Check a deal &rarr;</span>
-          </button>
-
           <div className="content-grid">
             <div className="task-card">
               {todayTask ? (

@@ -36,7 +36,6 @@ const PAGE_NAMES = {
   tool: 'Tool',
   profile: 'Profile',
   settings: 'Settings',
-  'deal-check': 'Deal Check',
 };
 
 const HELP_LINK = whatsappLink('Hi Stratos! I have a question.');
