@@ -19,6 +19,7 @@ import Resources from "./pages/Resources";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
 import ToolDetail from './pages/ToolDetail';
+import DealCheck from './pages/DealCheck';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
           <Route path="/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
           <Route path="/tool/:toolId" element={<ProtectedRoute><ToolDetail /></ProtectedRoute>} />
+          <Route path="/deal-check" element={<ProtectedRoute><DealCheck /></ProtectedRoute>} />
         </Routes>
       </Router>
     </AuthProvider>

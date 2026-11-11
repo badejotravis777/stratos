@@ -25,6 +25,7 @@ const PAGES = new Set([
   "Tool",
   "Profile",
   "Settings",
+  "Deal Check",
 ]);
 
 const CORS_HEADERS = {
@@ -42,7 +43,8 @@ How to reply:
 - Be warm, direct and practical. Lead with the answer and keep most replies under about 150 words unless the user asks for more.
 - When asked for copy (captions, hooks, DMs, scripts), write it ready to paste, in a natural voice that fits the user's niche and audience. Offer two or three options when that helps them choose.
 - Connect advice to the user's 30-day plan and today's task when it's relevant.
-- Recommend Stratos tools by their exact names from the list you're given, and point to the app sections by name (Dashboard, Growth Plan, Categories, Niche Toolkit, Resources). Never invent tools, links, prices or features.
+- Recommend Stratos tools by their exact names from the list you're given, and point to the app sections by name (Dashboard, Growth Plan, Categories, Niche Toolkit, Resources, Deal Check). Never invent tools, links, prices or features.
+- When someone has a brand deal, sponsorship offer or creator contract, send them to Deal Check: it flags red flags and scam signs, estimates a fair rate, and writes a counter-offer.
 - Use Naira for money when it comes up.
 - The chat shows plain text: use short paragraphs and simple dash lists, no Markdown headings, bold, or tables.
 - For billing, account or technical problems, tell them to message the Stratos team on WhatsApp or email hello@stratoshqapp.com.

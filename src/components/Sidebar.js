@@ -30,6 +30,13 @@ const Sidebar = () => {
           Growth Plan
         </NavLink>
 
+        <p className="menu-label mt-6">BRAND DEALS</p>
+        <NavLink to="/deal-check" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><polyline points="9 12 11 14 15 10"></polyline></svg>
+          Deal Check
+          <span className="menu-new">New</span>
+        </NavLink>
+
         <p className="menu-label mt-6">RESOURCES</p>
         <NavLink to="/categories" className={({ isActive }) => isActive ? "menu-item active" : "menu-item"}>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>

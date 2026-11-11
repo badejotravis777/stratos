@@ -336,6 +336,18 @@ body {
   text-transform: uppercase;
 }
 
+.menu-new {
+  margin-left: auto;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #EA580C;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+}
+
 /* Notifications popover */
 .notifications { position: relative; }
 .notifications-panel {
